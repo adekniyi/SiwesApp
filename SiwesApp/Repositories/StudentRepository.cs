@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using AutoMapper;
 
 namespace SiwesApp.Repositories
 {
@@ -26,12 +27,14 @@ namespace SiwesApp.Repositories
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IGlobalRepository _globalRepository;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
         private readonly IAuthenticationRepo _authenticationRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         public StudentRepository(ApplicationDataContext dataContext, UserManager<User> userManager, 
             SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor, IConfiguration configuration,
-            IWebHostEnvironment webHostEnvironment, IGlobalRepository globalRepository, IAuthenticationRepo authenticationRepository)
+            IWebHostEnvironment webHostEnvironment, IGlobalRepository globalRepository, IAuthenticationRepo authenticationRepository,
+            IMapper mapper)
         {
             _dataContext = dataContext;
             _userManager = userManager;
@@ -40,6 +43,7 @@ namespace SiwesApp.Repositories
             _configuration = configuration;
             _webHostEnvironment = webHostEnvironment;
             _globalRepository = globalRepository;
+            _mapper = mapper;
             _authenticationRepository = authenticationRepository;
         }
         public async Task<ToRespond> CreateStudent(StudentRequest studentRequest)
@@ -61,7 +65,6 @@ namespace SiwesApp.Repositories
                     StatusMessage = Helpers.StatusMessageObjectExists
                 };
             }
-            var organizationId = Int32.Parse(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == Utils.ClaimType_OrganizationId).Value);
 
             var student = new Student
             {
