@@ -1,0 +1,5 @@
+C:\Users\User\source\repos\SiwesApp\SiwesApp\obj\Debug\netcoreapp3.1\SiwesApp.csprojAssemblyReference.cache
+C:\Users\User\source\repos\SiwesApp\SiwesApp\obj\Debug\netcoreapp3.1\SiwesApp.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\SiwesApp\SiwesApp\obj\Debug\netcoreapp3.1\SiwesApp.AssemblyInfo.cs
+C:\Users\User\source\repos\SiwesApp\SiwesApp\obj\Debug\netcoreapp3.1\SiwesApp.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\SiwesApp\SiwesApp\obj\Debug\netcoreapp3.1\SiwesApp.MvcApplicationPartsAssemblyInfo.cache

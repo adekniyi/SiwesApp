@@ -17,6 +17,7 @@ namespace SiwesApp.Models
         public DateTimeOffset? LastLoginDateTime { get; set; }
         public DateTimeOffset? SecondToLastLoginDateTime { get; set; }
 
+        public virtual Student Student { get; set; }
         public virtual List<UserRole> UserRoles { get; set; }
     }
 }

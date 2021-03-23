@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SiwesApp.Models
 {
-    public class Role
+    public class Role : IdentityRole<int>
     {
         public string RoleName { get; set; }
         public string RoleDescription { get; set; }

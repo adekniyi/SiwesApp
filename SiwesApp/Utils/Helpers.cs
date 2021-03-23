@@ -7,14 +7,50 @@ namespace SiwesApp.Utils
 {
     public class Helpers
     {
-
-
         //User Types
         public const int SiwesAdmin = 1;
         public const int SiwesSupervisor = 2;
         public const int Lecturer = 3;
         public const int Student = 4;
         public const int IndustrialSupervisor = 5;
+
+        // STATUS MESSAGES
+        public const string StatusMessageSuccess = "Request Successful";
+        public const string StatusMessageMailFailure = "Object could not send Mail";
+        public const string StatusMessageNotFound = "Object was not Found";
+        public const string StatusMessageObjectNull = "Object is Empty";
+        public const string StatusMessageSaveError = "Object was unable to Save";
+        public const string StatusMessageObjectExists = "Object already Exists";
+        public const string StatusMessageBadRequest = "Bad Request";
+        public const string StatusMessageSignInError = "The User was unable to SignIn";
+        public const string StatusMessageEmailAlreadyConfirmed = "The Email Address has already been Confirmed by TestMi";
+        public const string StatusMessageInvalidUserType = "The User Type is Invalid";
+        public const string StatusMessageRoleAssignmentError = "Unable to Assign Role";
+        public const string StatusMessageUnauthorized = "Unauthorized access";
+
+        //STATUS CODES
+        public const int Success = 0;
+        public const int MailFailure = 1;
+        public const int NotFound = 2;
+        public const int ObjectNull = 3;
+        public const int SaveError = 4;
+        public const int SaveNoRowAffected = 5;
+        public const int NotSucceeded = 6;
+        public const int ObjectExists = 7;
+        public const int BadRequest = 8;
+        public const int SignInError = 9;
+        public const int EmailAlreadyConfirmed = 10;
+        public const int InvalidUserType = 11;
+        public const int RoleAssignmentError = 12;
+        public const int HasSubmitted = 13;
+        public const int Unauthorized = 14;
+
+
+        // User Roles
+        public const string SuperAdminRole = "SuperAdmin";
+        public const string AdminRole = "Admin";
+        public const string StaffRole = "Staff";
+        public const string StudentRole = "Student";
 
         // Claim Types
         public const string ClaimType_UserType = "UserType";
