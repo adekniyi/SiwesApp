@@ -9,7 +9,7 @@ namespace SiwesApp.Interfaces
 {
     interface ILecturerRepo
     {
-        public Task<ToRespond> CreateLecturer(LecturerRequest studentRequest);
+        public Task<ToRespond> CreateLecturer(LecturerRequest lecturerRequest);
 
     }
 }

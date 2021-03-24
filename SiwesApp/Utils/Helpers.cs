@@ -9,7 +9,7 @@ namespace SiwesApp.Utils
     {
         //User Types
         public const int SiwesAdmin = 1;
-        public const int SiwesSupervisor = 2;
+        public const int SiwesCoordinator = 2;
         public const int Lecturer = 3;
         public const int Student = 4;
         public const int IndustrialSupervisor = 5;
@@ -47,10 +47,11 @@ namespace SiwesApp.Utils
 
 
         // User Roles
-        public const string SuperAdminRole = "SuperAdmin";
         public const string AdminRole = "Admin";
-        public const string StaffRole = "Staff";
+        public const string SiwesCoordinatorRole = "SiwesCoordinator";
+        public const string LecturerRole = "Lecturer";
         public const string StudentRole = "Student";
+        public const string IndustrialSupervisorRole = "IndustrialSupervisor";
 
         // Claim Types
         public const string ClaimType_UserType = "UserType";

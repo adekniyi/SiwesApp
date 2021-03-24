@@ -48,7 +48,7 @@ namespace SiwesApp.Repositories
                     new Claim(Helpers.ClaimType_UserType, user.UserType.ToString())
                 };
             }
-            else if (user.UserType == Helpers.SiwesSupervisor)
+            else if (user.UserType == Helpers.SiwesCoordinator)
             {
                 claims = new List<Claim>{
                     new Claim(ClaimTypes.Name, user.Id.ToString()),

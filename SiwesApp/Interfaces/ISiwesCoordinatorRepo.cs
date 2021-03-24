@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SiwesApp.Interfaces
 {
-    interface ISiwesCoordinator
+    interface ISiwesCoordinatorRepo
     {
-        public Task<ToRespond> CreateStudent(SiwesCoordinatorRequest studentRequest);
+        public Task<ToRespond> CreateSiwesCo(SiwesCoordinatorRequest siwesCoordinatorRequest);
 
     }
 }

@@ -11,7 +11,7 @@ namespace SiwesApp.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int StaffId { get; set; }
+        public int LecturerId { get; set; }
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
