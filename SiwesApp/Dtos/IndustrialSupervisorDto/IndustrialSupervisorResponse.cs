@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SiwesApp.Dtos.IndustrialSupervisorDto
 {
-    public class IndustrialSupervisorRequest
+    public class IndustrialSupervisorResponse
     {
+        public int IndustrialSupervisorId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
@@ -16,6 +17,5 @@ namespace SiwesApp.Dtos.IndustrialSupervisorDto
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }
         public string SectionOfWork { get; set; }
-        //public string CompanyEmail { get; set; }
     }
 }
