@@ -116,6 +116,7 @@ namespace SiwesApp.Repositories
                 var password = (new Generate()).RandomPassword();
 
                 var result = await _userManager.CreateAsync(user, password);
+
                 if (result.Succeeded)
                 {
                     //ASSIGN STUDENT ROLE TO USER (Student)

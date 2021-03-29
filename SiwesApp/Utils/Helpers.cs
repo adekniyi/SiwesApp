@@ -47,7 +47,7 @@ namespace SiwesApp.Utils
 
 
         // User Roles
-        public const string AdminRole = "Admin";
+        public const string SiwesAdminRole = "SiwesAdmin";
         public const string SiwesCoordinatorRole = "SiwesCoordinator";
         public const string LecturerRole = "Lecturer";
         public const string StudentRole = "Student";
