@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SiwesApp.Interfaces
 {
-    interface IStudentRepo
+    public interface IStudentRepo
     {
         public Task<ToRespond> CreateStudent(StudentRequest studentRequest);
     }

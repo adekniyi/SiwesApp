@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SiwesApp.Interfaces
 {
-    interface ISiwesCoordinatorRepo
+    public interface ISiwesCoordinatorRepo
     {
         public Task<ToRespond> CreateSiwesCo(SiwesCoordinatorRequest siwesCoordinatorRequest);
 

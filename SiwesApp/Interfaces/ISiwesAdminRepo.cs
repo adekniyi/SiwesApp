@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SiwesApp.Dtos
+namespace SiwesApp.Interfaces
 {
-    interface ISiwesAdminRepo
+    public interface ISiwesAdminRepo
     {
         public Task<ToRespond> CreateSiwesAdmin(SiwesAdminRequest siwesAdminRequest);
     }

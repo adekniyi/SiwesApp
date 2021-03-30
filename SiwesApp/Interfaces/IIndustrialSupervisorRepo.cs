@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SiwesApp.Interfaces
 {
-    interface IIndustrialSupervisorRepo
+    public interface IIndustrialSupervisorRepo
     {
         public Task<ToRespond> CreateIndustrialSupervisor(IndustrialSupervisorRequest industrialSupervisorRequest);
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SiwesApp.Interfaces
 {
-    interface ILecturerRepo
+    public interface ILecturerRepo
     {
         public Task<ToRespond> CreateLecturer(LecturerRequest lecturerRequest);
 

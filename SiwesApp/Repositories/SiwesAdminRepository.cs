@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using SiwesApp.Data;
 using SiwesApp.Dtos;
 using SiwesApp.Dtos.All;
+using SiwesApp.Dtos.Authentication;
 using SiwesApp.Dtos.SiwesAdmin;
 using SiwesApp.Interfaces;
 using SiwesApp.Models;
@@ -26,14 +27,17 @@ namespace SiwesApp.Repositories
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IGlobalRepository _globalRepository;
         private readonly IConfiguration _configuration;
+        private readonly IRoleRepository _roleRepository;
         private readonly IMapper _mapper;
         private readonly IAuthenticationRepo _authenticationRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly RoleManager<Role> _roleManager;
+
 
         public SiwesAdminRepository(ApplicationDataContext dataContext, UserManager<User> userManager,
             SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor, IConfiguration configuration,
             IWebHostEnvironment webHostEnvironment, IGlobalRepository globalRepository, IAuthenticationRepo authenticationRepository,
-            IMapper mapper)
+            IMapper mapper, RoleManager<Role> roleManager,IRoleRepository roleRepository)
         {
             _dataContext = dataContext;
             _userManager = userManager;
@@ -44,6 +48,8 @@ namespace SiwesApp.Repositories
             _globalRepository = globalRepository;
             _mapper = mapper;
             _authenticationRepository = authenticationRepository;
+            _roleManager = roleManager;
+            _roleRepository = roleRepository;
         }
         public async Task<ToRespond> CreateSiwesAdmin(SiwesAdminRequest siwesAdminRequest)
         {
@@ -147,7 +153,7 @@ namespace SiwesApp.Repositories
                                 siwesAdminRoleForAssignment
                             };
 
-                    var assignmentResult = await _roleManagementRepository.AssignRolesToUser(new RoleUserAssignmentRequest()
+                    var assignmentResult = await _roleRepository.AssignRolesToUser(new RoleUserAssignmentRequest()
                     {
                         Users = new List<UserToReturn>() {
                                 new UserToReturn()
@@ -173,37 +179,39 @@ namespace SiwesApp.Repositories
                         }
                         else
                         {
+                            var siwesAdminToReturn = await GetOneSiwesAdmin(siwesAdmin.SiwesAdminId);
+
                             return new ToRespond()
                             {
                                 StatusCode = Helpers.Success,
-                                ObjectValue = (User)superAdminToReturn.ObjectValue,
+                                ObjectValue = (User)siwesAdminToReturn.ObjectValue,
                                 StatusMessage = "SuperAdmin Created Successfully!!!"
                             };
                         }
                     }
                     else
                     {
-                        return new ReturnResponse()
+                        return new ToRespond()
                         {
-                            StatusCode = Utils.NotSucceeded,
+                            StatusCode = Helpers.NotSucceeded,
                             StatusMessage = "Error Occured while saving SuperAdmin Information"
                         };
                     }
                 }
                 else
                 {
-                    return new ReturnResponse()
+                    return new ToRespond()
                     {
-                        StatusCode = Utils.NotSucceeded,
+                        StatusCode = Helpers.NotSucceeded,
                         StatusMessage = "Error Occured while saving SuperAdmin Information"
                     };
                 }
             }
             else
             {
-                return new ReturnResponse()
+                return new ToRespond()
                 {
-                    StatusCode = Utils.SaveError,
+                    StatusCode = Helpers.SaveError,
                     StatusMessage = "Error Occured while saving SuperAdmin Information"
                 };
             }
@@ -212,6 +220,30 @@ namespace SiwesApp.Repositories
         private async Task<bool> SiwesAdminExists(string username)
         {
             return await _userManager.Users.AnyAsync(x => x.Email.ToUpper() == username.ToUpper());
+        }
+
+        public async Task<ToRespond> GetOneSiwesAdmin(int id)
+        {
+            var superAdmin = await _userManager.Users
+                                             .Where(a => (a.UserTypeId == id) && (a.UserType == Helpers.SiwesAdmin) && (!a.Deleted))
+                                             .Include(c => c.UserRoles)
+                                             .ThenInclude(d => d.Role)
+                                             .ToListAsync();
+            if (superAdmin == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                ObjectValue = superAdmin.FirstOrDefault(),
+                StatusMessage = Helpers.StatusMessageSuccess
+            };
         }
 
         private string GetHashedEmail(string emailVal)
