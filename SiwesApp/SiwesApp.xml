@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SiwesApp</name>
+    </assembly>
+    <members>
+        <member name="M:SiwesApp.Controllers.IndustrialSupervisorController.CreateIndustrialSupervisor(SiwesApp.Dtos.IndustrialSupervisorDto.IndustrialSupervisorRequest)">
+            <summary>
+            CREATE Industrial Supervisor FOR A Siwes Application
+            </summary>
+            POST: api/industrialSupervisor
+        </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.CreateLecturer(SiwesApp.Dtos.LecturerDto.LecturerRequest)">
+            <summary>
+            CREATE A Lecturer FOR Siwes Application
+            </summary>
+            POST: api/lecturer
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesAdminController.CreateSiwesAdmin(SiwesApp.Dtos.SiwesAdmin.SiwesAdminRequest)">
+            <summary>
+            CREATE A Siwes ADMIN
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.CreateSiwesCoordinator(SiwesApp.Dtos.SiwesCoOrdinatotDto.SiwesCoordinatorRequest)">
+            <summary>
+            CREATE SiwesCoordinator FOR A Siwes Application
+            </summary>
+            POST: api/siwescoordinator
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.CreateStudent(SiwesApp.Dtos.StudentDto.StudentRequest)">
+            <summary>
+            CREATE A STUDENT FOR AN Siwes Application
+            </summary>
+            POST: api/student
+        </member>
+    </members>
+</doc>
