@@ -44,8 +44,10 @@ namespace SiwesApp.Utils
         public const int InvalidUserType = 11;
         public const int RoleAssignmentError = 12;
         public const int HasSubmitted = 13;
-        public const int Unauthorized = 14;
-        public const int LockedOut = 15;
+        public const int Unauthorized = 14; 
+        public const int LockedOut = 15; 
+        public const int InvalidFileSize = 16; 
+        public const int CloudinaryFileDeleteError = 17; 
 
 
         // User Roles

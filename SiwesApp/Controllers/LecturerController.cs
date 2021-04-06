@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SiwesApp.Dtos.LecturerDto;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace SiwesApp.Controllers
 {
+    [Authorize(Roles = "SiwesAdmin")]
     [Route("api/[controller]")]
     [ApiController]
     public class LecturerController : ControllerBase

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SiwesApp.Dtos.StudentDto;
 using SiwesApp.Interfaces;
 using SiwesApp.Models;

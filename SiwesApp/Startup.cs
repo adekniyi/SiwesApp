@@ -24,6 +24,7 @@ using System.Reflection;
 using System.IO;
 using SiwesApp.Interfaces;
 using SiwesApp.Repositories;
+using SiwesApp.Utils;
 
 namespace SiwesApp
 {
@@ -98,6 +99,7 @@ namespace SiwesApp
             services.AddScoped<IStudentRepo, StudentRepository>();
             services.AddScoped<ISiwesAdminRepo, SiwesAdminRepository>();
             services.AddScoped<ISiwesCoordinatorRepo, SiwesCoRepository>();
+            services.AddScoped<ICloudinaryRepository, CloudinaryRepository>();
 
             services.AddControllers();
 
@@ -112,6 +114,8 @@ namespace SiwesApp
                        .WithOrigins(origins)
                        .AllowCredentials();
             }));
+
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
 
             services.AddAutoMapper(typeof(Startup));
 
