@@ -34,6 +34,8 @@ namespace SiwesApp.Utils
 
             //CreateMap<User, UserDetails>();
             CreateMap<User, UserToReturn>();
+            CreateMap<User, UserDetails>();
+            CreateMap<UserDetails, UserLoginResponse>();
 
             CreateMap<RoleRequest, Role>();
             CreateMap<Role, RoleResponse>();

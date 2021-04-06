@@ -4,6 +4,11 @@
         <name>SiwesApp</name>
     </assembly>
     <members>
+        <member name="M:SiwesApp.Controllers.AuthenticationController.PostLogin(SiwesApp.Dtos.All.UserForLogin)">
+            <summary>
+            LOGIN THE USER TO THE SYSTEM
+            </summary>
+        </member>
         <member name="M:SiwesApp.Controllers.IndustrialSupervisorController.CreateIndustrialSupervisor(SiwesApp.Dtos.IndustrialSupervisorDto.IndustrialSupervisorRequest)">
             <summary>
             CREATE Industrial Supervisor FOR A Siwes Application

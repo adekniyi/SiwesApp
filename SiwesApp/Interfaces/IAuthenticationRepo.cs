@@ -12,7 +12,7 @@ namespace SiwesApp.Interfaces
         public Task<string> GenerateJwtToken(User user, string secretKey);
         //public Task<ToRespond> ResendUserEmailVerificationLink(EmailVerificationRequest emailVerificationRequest);
         public string GetUserEmailVerificationLink(string userToken);
-        public Task<ToRespond> LoginUser(UserForLogin userLoginDetails, string secretKey)
+        public Task<ToRespond> LoginUser(UserForLogin userLoginDetails, string secretKey);
 
     }
 }
