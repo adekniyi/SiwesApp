@@ -21,5 +21,6 @@ namespace SiwesApp.Models
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }
         public string SectionOfWork { get; set; }
+        public virtual User User { get; set; }
     }
 }

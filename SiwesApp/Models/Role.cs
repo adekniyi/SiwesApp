@@ -11,9 +11,9 @@ namespace SiwesApp.Models
         public string RoleDescription { get; set; }
         public int UserType { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTimeOffset CreatedAt { get; set; }
+        //public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset? ModifiedAt { get; set; }
-        public DateTimeOffset? DeletedAt { get; set; }
+        //public DateTimeOffset? DeletedAt { get; set; }
 
         public virtual List<UserRole> UserRoles { get; set; }
     }

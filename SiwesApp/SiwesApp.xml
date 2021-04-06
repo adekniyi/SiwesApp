@@ -16,6 +16,31 @@
             </summary>
             POST: api/lecturer
         </member>
+        <member name="M:SiwesApp.Controllers.RoleController.PostRoles(System.Collections.Generic.List{SiwesApp.Dtos.All.RoleRequest})">
+            <summary>
+            CREATE ROLE
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.RoleController.GetRoles(System.Int32)">
+            <summary>
+            GET A ROLE BY ROLEID = ID
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.RoleController.DeleteRoles(System.Collections.Generic.List{SiwesApp.Dtos.All.RoleResponse})">
+            <summary>
+            DELETE ROLES
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.RoleController.PutRoles(System.Collections.Generic.List{SiwesApp.Dtos.All.RoleResponse})">
+            <summary>
+            UPDATE ROLES IN THE SYSTEM
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.RoleController.PostAssignRolesToUser(SiwesApp.Dtos.All.RoleUserAssignmentRequest)">
+            <summary>
+            ASSIGN ROLES
+            </summary>
+        </member>
         <member name="M:SiwesApp.Controllers.SiwesAdminController.CreateSiwesAdmin(SiwesApp.Dtos.SiwesAdmin.SiwesAdminRequest)">
             <summary>
             CREATE A Siwes ADMIN

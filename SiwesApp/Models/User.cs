@@ -19,5 +19,9 @@ namespace SiwesApp.Models
 
         public virtual Student Student { get; set; }
         public virtual List<UserRole> UserRoles { get; set; }
+        public virtual SiwesAdmin siwesAdmin { get; set; }
+        public virtual SiwesCoordinator siwesCoordinator { get; set; }
+        public virtual Lecturer lecturer { get; set; }
+        public virtual IndustrialSupervisor industrialSupervisor { get; set; }
     }
 }

@@ -9,13 +9,14 @@ namespace SiwesApp.Models
 {
     public class SiwesAdmin
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SiwesAdminId { get; set; }
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
-        public User User { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

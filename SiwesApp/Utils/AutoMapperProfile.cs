@@ -32,10 +32,12 @@ namespace SiwesApp.Utils
             CreateMap<Lecturer, LecturerResponse>();
             CreateMap<LecturerResponse, Lecturer>();
 
+            //CreateMap<User, UserDetails>();
+            CreateMap<User, UserToReturn>();
 
             CreateMap<RoleRequest, Role>();
             CreateMap<Role, RoleResponse>();
-            CreateMap<RoleResponse, Role>().ForMember(a => a.Id, b => b.Ignore()).ForMember(a1 => a1.DeletedAt, b1 => b1.Ignore()).ForMember(a2 => a2.CreatedAt, b2 => b2.Ignore());
+            CreateMap<RoleResponse, Role>().ForMember(a => a.Id, b => b.Ignore());
 
         }
     }

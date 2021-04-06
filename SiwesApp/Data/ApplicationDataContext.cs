@@ -37,7 +37,45 @@ namespace SiwesApp.Data
                 .HasForeignKey(ur => ur.UserId)
                 .IsRequired(false);
             });
+
+
+
+            //builder.Entity<Lecturer>()
+            //    .HasOne(a => a.User)
+            //    .WithOne(b => b.lecturer)
+            //    .HasForeignKey<Lecturer>(c => c.UserId)
+            //    .IsRequired(false);
+
+            builder.Entity<SiwesAdmin>()
+             .HasOne(a => a.User)
+             .WithOne(b => b.siwesAdmin)
+             .HasForeignKey<SiwesAdmin>(c => c.UserId)
+             .IsRequired(false);
+
+         //   builder.Entity<SiwesCoordinator>()
+         //  .HasOne(a => a.User)
+         //  .WithOne(b => b.siwesCoordinator)
+         //  .HasForeignKey<SiwesCoordinator>(c => c.UserId)
+         //  .IsRequired(false);
+
+         //   builder.Entity<IndustrialSupervisor>()
+         //.HasOne(a => a.User)
+         //.WithOne(b => b.industrialSupervisor)
+         //.HasForeignKey<IndustrialSupervisor>(c => c.UserId)
+         //.IsRequired(false);
+
+
+         //   builder.Entity<Student>()
+         //       .HasOne(a => a.User)
+         //       .WithOne(b => b.Student)
+         //       .HasForeignKey<Student>(c => c.UserId)
+         //       .IsRequired(false);
+
         }
-        public DbSet<Student> Student { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Lecturer> Lecturers { get; set; }
+        public DbSet<SiwesAdmin> SiwesAdmins { get; set; }
+        public DbSet<SiwesCoordinator> SiwesCoordinators { get; set; }
+        public DbSet<IndustrialSupervisor> IndustrialSupervisors { get; set; }
     }
 }

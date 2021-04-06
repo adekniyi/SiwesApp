@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SiwesApp.Data;
 using SiwesApp.Dtos.All;
-using SiwesApp.Dtos.Authentication;
+//using SiwesApp.Dtos.Authentication;
 using SiwesApp.Interfaces;
 using SiwesApp.Models;
 using SiwesApp.Utils;
@@ -18,15 +18,13 @@ namespace SiwesApp.Repositories
     {
         private readonly RoleManager<Role> _roleManager;
         private readonly ApplicationDataContext _dataContext;
-        private readonly IGlobalRepository _globalRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
 
-        public RoleRepository(RoleManager<Role> roleManager, ApplicationDataContext dataContext, IGlobalRepository globalRepository, IMapper mapper, UserManager<User> userManager)
+        public RoleRepository(RoleManager<Role> roleManager, ApplicationDataContext dataContext, IMapper mapper, UserManager<User> userManager)
         {
             _roleManager = roleManager;
             _dataContext = dataContext;
-            _globalRepository = globalRepository;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -148,7 +146,7 @@ namespace SiwesApp.Repositories
             var dbTransaction = await _dataContext.Database.BeginTransactionAsync();
             foreach (var roleType in roles)
             {
-                if (roleType.UserType != Helpers.SiwesAdmin && roleType.UserType != Helpers.SiwesCoordinator && roleType.UserType != Helpers.Lecturer && roleType.UserType != Helpers.Student)
+                if (roleType.UserType != Helpers.SiwesAdmin && roleType.UserType != Helpers.SiwesCoordinator && roleType.UserType != Helpers.Lecturer && roleType.UserType != Helpers.Student && roleType.UserType != Helpers.IndustrialSupervisor)
                 {
                     await dbTransaction.RollbackAsync();
                     return new ToRespond()
