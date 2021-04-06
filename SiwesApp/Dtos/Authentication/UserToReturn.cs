@@ -11,5 +11,7 @@ namespace SiwesApp.Dtos.All
         public int UserType { get; set; } 
         public int UserTypeId { get; set; } 
         public bool EmailConfirmed { get; set; }
+        public DateTimeOffset? LastLoginDateTime { get; set; }
+        public DateTimeOffset? SecondToLastLoginDateTime { get; set; }
     }
 }

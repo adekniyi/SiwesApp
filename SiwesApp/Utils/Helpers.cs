@@ -27,6 +27,7 @@ namespace SiwesApp.Utils
         public const string StatusMessageInvalidUserType = "The User Type is Invalid";
         public const string StatusMessageRoleAssignmentError = "Unable to Assign Role";
         public const string StatusMessageUnauthorized = "Unauthorized access";
+        public const string StatusMessageLockedOut = "This Account Has Been Deactivated";
 
         //STATUS CODES
         public const int Success = 0;
@@ -44,6 +45,7 @@ namespace SiwesApp.Utils
         public const int RoleAssignmentError = 12;
         public const int HasSubmitted = 13;
         public const int Unauthorized = 14;
+        public const int LockedOut = 15;
 
 
         // User Roles
