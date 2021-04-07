@@ -207,5 +207,48 @@ namespace SiwesApp.Repositories
         {
             return await _userManager.Users.AnyAsync(x => x.Email.ToUpper() == email.ToUpper());
         }
+
+        public async Task<ToRespond> GetAllSiwesCos()
+        {
+            var siwesCo = await _dataContext.SiwesCoordinators.ToListAsync();
+
+            if (siwesCo == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            };
+
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                StatusMessage = Helpers.StatusMessageSuccess,
+                ObjectValue = _mapper.Map<List<SiwesCoordinatorResponse>>(siwesCo)
+            };
+        }
+
+        public async Task<ToRespond> GetOneSiwesCo(int siwesCoId)
+        {
+            var siwesCo = await _dataContext.SiwesCoordinators.FindAsync(siwesCoId);
+
+            if (siwesCo == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                StatusMessage = Helpers.StatusMessageSuccess,
+                ObjectValue = _mapper.Map<SiwesCoordinatorResponse>(siwesCo)
+            };
+        }
     }
 }

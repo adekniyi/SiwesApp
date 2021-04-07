@@ -45,5 +45,45 @@ namespace SiwesApp.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, result);
             }
         }
+
+        /// <summary>
+        /// Get All SiwesCo FOR AN Siwes Application
+        /// </summary>
+        /// Get: api/siwesCo
+        [HttpGet]
+        public async Task<ActionResult> GetAllSiwesCo()
+        {
+            var result = await _siwesCoRepository.GetAllSiwesCos();
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Get One siwesCo FOR AN Siwes Application
+        /// </summary>
+        /// Get: api/siwesCoordinator/1
+        [HttpGet]
+        [Route("{siwesCoId}")]
+        public async Task<ActionResult> GetOneSiwesCo(int siwesCoId)
+        {
+            var result = await _siwesCoRepository.GetOneSiwesCo(siwesCoId);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
     }
 }

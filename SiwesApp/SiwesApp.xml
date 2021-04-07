@@ -57,6 +57,18 @@
             </summary>
             POST: api/siwescoordinator
         </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.GetAllSiwesCo">
+            <summary>
+            Get All SiwesCo FOR AN Siwes Application
+            </summary>
+            Get: api/siwesCo
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.GetOneSiwesCo(System.Int32)">
+            <summary>
+            Get One siwesCo FOR AN Siwes Application
+            </summary>
+            Get: api/siwesCoordinator/1
+        </member>
         <member name="M:SiwesApp.Controllers.StudentController.CreateStudent(SiwesApp.Dtos.StudentDto.StudentRequest)">
             <summary>
             CREATE A STUDENT FOR AN Siwes Application

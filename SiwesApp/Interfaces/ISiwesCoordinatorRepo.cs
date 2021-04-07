@@ -10,6 +10,8 @@ namespace SiwesApp.Interfaces
     public interface ISiwesCoordinatorRepo
     {
         public Task<ToRespond> CreateSiwesCo(SiwesCoordinatorRequest siwesCoordinatorRequest);
+        public Task<ToRespond> GetAllSiwesCos();
+        public Task<ToRespond> GetOneSiwesCo(int siwesCoId);
 
     }
 }
