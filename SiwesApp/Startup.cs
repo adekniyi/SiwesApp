@@ -99,6 +99,7 @@ namespace SiwesApp
             services.AddScoped<IStudentRepo, StudentRepository>();
             services.AddScoped<ISiwesAdminRepo, SiwesAdminRepository>();
             services.AddScoped<ISiwesCoordinatorRepo, SiwesCoRepository>();
+            services.AddScoped<IIndustrialSupervisorRepo, IndustrialSupervisorRepo>();
             services.AddScoped<ICloudinaryRepository, CloudinaryRepository>();
 
             services.AddControllers();

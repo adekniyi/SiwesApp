@@ -13,7 +13,7 @@ namespace SiwesApp.Dtos.IndustrialSupervisorDto
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
-        public IFormFile PictureUrl { get; set; }
+        public String PictureUrl { get; set; }
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }
         public string SectionOfWork { get; set; }

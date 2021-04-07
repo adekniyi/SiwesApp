@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CloudinaryDotNet.Actions;
 
 namespace SiwesApp.Repositories
 {
@@ -29,11 +30,13 @@ namespace SiwesApp.Repositories
         private readonly IGlobalRepository _globalRepository;
         private readonly IMapper _mapper;
         private readonly IAuthenticationRepo _authenticationRepository;
+        private readonly ICloudinaryRepository _cloudinaryRepository;
+
 
         public SiwesCoRepository(ApplicationDataContext dataContext, UserManager<User> userManager,
             SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor, IConfiguration configuration,
             IWebHostEnvironment webHostEnvironment, IGlobalRepository globalRepository, IAuthenticationRepo authenticationRepository,
-            IMapper mapper)
+            IMapper mapper, ICloudinaryRepository cloudinaryRepository)
         {
             _dataContext = dataContext;
             _userManager = userManager;
@@ -44,6 +47,7 @@ namespace SiwesApp.Repositories
             _globalRepository = globalRepository;
             _mapper = mapper;
             _authenticationRepository = authenticationRepository;
+            _cloudinaryRepository = cloudinaryRepository;
         }
         public async Task<ToRespond> CreateSiwesCo(SiwesCoordinatorRequest siwesCoordinatorRequest)
         {
@@ -74,16 +78,11 @@ namespace SiwesApp.Repositories
                 Department = siwesCoordinatorRequest.Department,
             };
 
-            string uniqueFileName = null;
             if (siwesCoordinatorRequest.PictureUrl != null)
             {
-                string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Image");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + siwesCoordinatorRequest.PictureUrl.FileName;
-
-                string filePath = Path.Combine(uploadFolder, uniqueFileName);
-
-                siwesCoordinatorRequest.PictureUrl.CopyTo(new FileStream(filePath, FileMode.Create));
-                siwesCoordinator.PictureUrl = uniqueFileName;
+                var result = _cloudinaryRepository.UploadFileToCloudinary(siwesCoordinatorRequest.PictureUrl);
+                var image = (RawUploadResult)result.ObjectValue;
+                siwesCoordinator.PictureUrl = image.Uri.ToString();
             }
 
             var dbTransaction = await _dataContext.Database.BeginTransactionAsync();
@@ -177,7 +176,7 @@ namespace SiwesApp.Repositories
                             {
                                 StatusCode = Helpers.Success,
                                 ObjectValue = _mapper.Map<SiwesCoordinatorResponse>(siwesCoordinator),
-                                StatusMessage = "Student Created Successfully!!!"
+                                StatusMessage = "Siwes Coordinator Created Successfully!!!"
                             };
                         }
                     }

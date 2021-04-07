@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CloudinaryDotNet.Actions;
 
 namespace SiwesApp.Repositories
 {
@@ -29,11 +30,12 @@ namespace SiwesApp.Repositories
         private readonly IMapper _mapper;
         private readonly IAuthenticationRepo _authenticationRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ICloudinaryRepository _cloudinaryRepository;
 
         public IndustrialSupervisorRepo(ApplicationDataContext dataContext, UserManager<User> userManager,
             SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor, IConfiguration configuration,
             IWebHostEnvironment webHostEnvironment, IGlobalRepository globalRepository, IAuthenticationRepo authenticationRepository,
-            IMapper mapper)
+            IMapper mapper, ICloudinaryRepository cloudinaryRepository)
         {
             _dataContext = dataContext;
             _userManager = userManager;
@@ -44,6 +46,7 @@ namespace SiwesApp.Repositories
             _globalRepository = globalRepository;
             _mapper = mapper;
             _authenticationRepository = authenticationRepository;
+            _cloudinaryRepository = cloudinaryRepository;
         }
         public async Task<ToRespond> CreateIndustrialSupervisor(IndustrialSupervisorRequest industrialSupervisorRequest)
         {
@@ -76,16 +79,11 @@ namespace SiwesApp.Repositories
                 SectionOfWork = industrialSupervisorRequest.SectionOfWork
             };
 
-            string uniqueFileName = null;
             if (industrialSupervisorRequest.PictureUrl != null)
             {
-                string uploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Image");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + industrialSupervisorRequest.PictureUrl.FileName;
-
-                string filePath = Path.Combine(uploadFolder, uniqueFileName);
-
-                industrialSupervisorRequest.PictureUrl.CopyTo(new FileStream(filePath, FileMode.Create));
-                industrialSupervisor.PictureUrl = uniqueFileName;
+                var result = _cloudinaryRepository.UploadFileToCloudinary(industrialSupervisorRequest.PictureUrl);
+                var image = (RawUploadResult)result.ObjectValue;
+                industrialSupervisor.PictureUrl = image.Uri.ToString();
             }
 
             var dbTransaction = await _dataContext.Database.BeginTransactionAsync();
