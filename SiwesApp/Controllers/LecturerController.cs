@@ -45,5 +45,45 @@ namespace SiwesApp.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, result);
             }
         }
+
+        /// <summary>
+        /// Get All Lecturers FOR AN Siwes Application
+        /// </summary>
+        /// Get: api/lecturer
+        [HttpGet]
+        public async Task<ActionResult> GetAllLecturers()
+        {
+            var result = await _lecturerRepository.GetAllLecturers();
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Get One Lecturer FOR AN Siwes Application
+        /// </summary>
+        /// Get: api/lecturer/1
+        [HttpGet]
+        [Route("{lecturerId}")]
+        public async Task<ActionResult> GetOneLecturer(int lecturerId)
+        {
+            var result = await _lecturerRepository.GetOneLecturer(lecturerId);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
     }
 }

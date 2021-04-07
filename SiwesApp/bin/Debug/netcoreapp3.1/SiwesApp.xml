@@ -21,6 +21,18 @@
             </summary>
             POST: api/lecturer
         </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.GetAllLecturers">
+            <summary>
+            Get All Lecturers FOR AN Siwes Application
+            </summary>
+            Get: api/lecturer
+        </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.GetOneLecturer(System.Int32)">
+            <summary>
+            Get One Lecturer FOR AN Siwes Application
+            </summary>
+            Get: api/lecturer/1
+        </member>
         <member name="M:SiwesApp.Controllers.RoleController.PostRoles(System.Collections.Generic.List{SiwesApp.Dtos.All.RoleRequest})">
             <summary>
             CREATE ROLE
@@ -67,7 +79,7 @@
             <summary>
             Get One siwesCo FOR AN Siwes Application
             </summary>
-            Get: api/siwesCoordinator/1
+            Get: api/siwesCo/1
         </member>
         <member name="M:SiwesApp.Controllers.StudentController.CreateStudent(SiwesApp.Dtos.StudentDto.StudentRequest)">
             <summary>
