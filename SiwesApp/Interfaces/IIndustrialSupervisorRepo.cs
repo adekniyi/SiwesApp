@@ -10,6 +10,8 @@ namespace SiwesApp.Interfaces
     public interface IIndustrialSupervisorRepo
     {
         public Task<ToRespond> CreateIndustrialSupervisor(IndustrialSupervisorRequest industrialSupervisorRequest);
+        public Task<ToRespond> GetAllIndustrialSupervisors();
+        public Task<ToRespond> GetOneIndustrialSupervisor(int industrialSupervisorId);
 
     }
 }

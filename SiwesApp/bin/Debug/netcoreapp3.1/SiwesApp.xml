@@ -15,6 +15,18 @@
             </summary>
             POST: api/industrialSupervisor
         </member>
+        <member name="M:SiwesApp.Controllers.IndustrialSupervisorController.GetAllIndustrialSupervisors">
+            <summary>
+            Get All Industrial Supervisor FOR AN Siwes Application
+            </summary>
+            Get: api/industrialSupervisor
+        </member>
+        <member name="M:SiwesApp.Controllers.IndustrialSupervisorController.GetOneIndustrialSupervisor(System.Int32)">
+            <summary>
+            Get One Industrial Supervisor FOR AN Siwes Application
+            </summary>
+            Get: api/industrialSupervisor/1
+        </member>
         <member name="M:SiwesApp.Controllers.LecturerController.CreateLecturer(SiwesApp.Dtos.LecturerDto.LecturerRequest)">
             <summary>
             CREATE A Lecturer FOR Siwes Application

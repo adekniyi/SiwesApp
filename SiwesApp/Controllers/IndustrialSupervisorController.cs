@@ -45,5 +45,45 @@ namespace SiwesApp.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, result);
             }
         }
+
+        /// <summary>
+        /// Get All Industrial Supervisor FOR AN Siwes Application
+        /// </summary>
+        /// Get: api/industrialSupervisor
+        [HttpGet]
+        public async Task<ActionResult> GetAllIndustrialSupervisors()
+        {
+            var result = await _industrialSupervisorRepository.GetAllIndustrialSupervisors();
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Get One Industrial Supervisor FOR AN Siwes Application
+        /// </summary>
+        /// Get: api/industrialSupervisor/1
+        [HttpGet]
+        [Route("{industrialSupervisorId}")]
+        public async Task<ActionResult> GetOneIndustrialSupervisor(int industrialSupervisorId)
+        {
+            var result = await _industrialSupervisorRepository.GetOneIndustrialSupervisor(industrialSupervisorId);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
     }
 }

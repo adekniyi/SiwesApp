@@ -207,5 +207,48 @@ namespace SiwesApp.Repositories
         {
             return await _userManager.Users.AnyAsync(x => x.Email.ToUpper() == email.ToUpper());
         }
+
+        public async Task<ToRespond> GetAllIndustrialSupervisors()
+        {
+            var industrialSupervisors = await _dataContext.IndustrialSupervisors.ToListAsync();
+
+            if (industrialSupervisors == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            };
+
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                StatusMessage = Helpers.StatusMessageSuccess,
+                ObjectValue = _mapper.Map<List<IndustrialSupervisorResponse>>(industrialSupervisors)
+            };
+        }
+
+        public async Task<ToRespond> GetOneIndustrialSupervisor(int industrialSupervisorId)
+        {
+            var industrialSupervisor = await _dataContext.IndustrialSupervisors.FindAsync(industrialSupervisorId);
+
+            if (industrialSupervisor == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                StatusMessage = Helpers.StatusMessageSuccess,
+                ObjectValue = _mapper.Map<IndustrialSupervisorResponse>(industrialSupervisor)
+            };
+        }
     }
 }

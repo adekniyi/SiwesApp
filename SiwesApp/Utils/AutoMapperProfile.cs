@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SiwesApp.Dtos.All;
+using SiwesApp.Dtos.IndustrialSupervisorDto;
 using SiwesApp.Dtos.LecturerDto;
 using SiwesApp.Dtos.SiwesAdmin;
 using SiwesApp.Dtos.SiwesCoOrdinatotDto;
@@ -27,6 +28,9 @@ namespace SiwesApp.Utils
             CreateMap<SiwesCoordinator, SiwesCoordinatorResponse>();
             CreateMap<SiwesCoordinatorResponse, SiwesCoordinator>();
 
+            CreateMap<IndustrialSupervisorRequest, IndustrialSupervisor>();
+            CreateMap<IndustrialSupervisor, IndustrialSupervisorResponse>();
+            CreateMap<IndustrialSupervisorResponse, IndustrialSupervisor>();
 
             CreateMap<LecturerRequest, Lecturer>();
             CreateMap<Lecturer, LecturerResponse>();
