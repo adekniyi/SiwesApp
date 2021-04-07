@@ -10,5 +10,7 @@ namespace SiwesApp.Interfaces
     public interface IStudentRepo
     {
         public Task<ToRespond> CreateStudent(StudentRequest studentRequest);
+        public Task<ToRespond> GetAllStudents();
+        public Task<ToRespond> GetOneStudent(int studentId);
     }
 }

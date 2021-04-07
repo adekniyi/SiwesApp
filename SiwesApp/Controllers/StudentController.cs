@@ -54,6 +54,44 @@ namespace SiwesApp.Controllers
         }
 
 
+        /// <summary>
+        /// Get All STUDENT FOR AN Siwes Application
+        /// </summary>
+        /// Get: api/student
+        [HttpGet]
+        public async Task<ActionResult> GetAllStudents()
+        {
+            var result = await _studentRepository.GetAllStudents();
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Get One STUDENT FOR AN Siwes Application
+        /// </summary>
+        /// Get: api/student/1
+        [HttpGet]
+        [Route("{studentId}")]
+        public async Task<ActionResult> GetOneStudent(int studentId)
+        {
+            var result = await _studentRepository.GetOneStudent(studentId);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
 
     }
 }

@@ -63,5 +63,17 @@
             </summary>
             POST: api/student
         </member>
+        <member name="M:SiwesApp.Controllers.StudentController.GetAllStudents">
+            <summary>
+            Get All STUDENT FOR AN Siwes Application
+            </summary>
+            Get: api/student
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.GetOneStudent(System.Int32)">
+            <summary>
+            Get One STUDENT FOR AN Siwes Application
+            </summary>
+            Get: api/student/1
+        </member>
     </members>
 </doc>

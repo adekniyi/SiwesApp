@@ -210,5 +210,48 @@ namespace SiwesApp.Repositories
         {
             return await _userManager.Users.AnyAsync(x => x.Email.ToUpper() == email.ToUpper());
         }
+
+        public async Task<ToRespond> GetAllStudents()
+        {
+            var students = await _dataContext.Students.ToListAsync();
+
+            if (students == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            };
+
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                StatusMessage = Helpers.StatusMessageSuccess,
+                ObjectValue = _mapper.Map<List<StudentResponse>>(students)
+            };
+        }
+
+        public async Task<ToRespond> GetOneStudent(int studentId)
+        {
+            var student = await _dataContext.Students.FindAsync(studentId);
+
+            if(student == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                StatusMessage = Helpers.StatusMessageSuccess,
+                ObjectValue = _mapper.Map<StudentResponse>(student)
+            };
+        }
     }
 }
