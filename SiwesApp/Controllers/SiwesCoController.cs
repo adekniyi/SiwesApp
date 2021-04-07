@@ -68,7 +68,7 @@ namespace SiwesApp.Controllers
         /// <summary>
         /// Get One siwesCo FOR AN Siwes Application
         /// </summary>
-        /// Get: api/siwesCoordinator/1
+        /// Get: api/siwesCo/1
         [HttpGet]
         [Route("{siwesCoId}")]
         public async Task<ActionResult> GetOneSiwesCo(int siwesCoId)
