@@ -17,7 +17,7 @@
         </member>
         <member name="M:SiwesApp.Controllers.IndustrialSupervisorController.GetAllIndustrialSupervisors">
             <summary>
-            Get All Industrial Supervisor FOR AN Siwes Application
+            Get All Industrial Supervisors FOR AN Siwes Application
             </summary>
             Get: api/industrialSupervisor
         </member>
@@ -83,7 +83,7 @@
         </member>
         <member name="M:SiwesApp.Controllers.SiwesCoController.GetAllSiwesCo">
             <summary>
-            Get All SiwesCo FOR AN Siwes Application
+            Get All SiwesCos FOR AN Siwes Application
             </summary>
             Get: api/siwesCo
         </member>
@@ -101,7 +101,7 @@
         </member>
         <member name="M:SiwesApp.Controllers.StudentController.GetAllStudents">
             <summary>
-            Get All STUDENT FOR AN Siwes Application
+            Get All STUDENTs FOR AN Siwes Application
             </summary>
             Get: api/student
         </member>
@@ -110,6 +110,12 @@
             Get One STUDENT FOR AN Siwes Application
             </summary>
             Get: api/student/1
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.StudentPlacement(SiwesApp.Dtos.StudentDto.PlacementRequestDto)">
+            <summary>
+            CREATE A Placement For STUDENT 
+            </summary>
+            POST: api/student/placement
         </member>
     </members>
 </doc>

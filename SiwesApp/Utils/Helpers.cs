@@ -14,6 +14,11 @@ namespace SiwesApp.Utils
         public const int Student = 4;
         public const int IndustrialSupervisor = 5;
 
+        //Eligibility Status 
+        public const int Pending = 1;
+        public const int Eligible = 2;
+        public const int Rejected = 3;
+
         // STATUS MESSAGES
         public const string StatusMessageSuccess = "Request Successful";
         public const string StatusMessageMailFailure = "Object could not send Mail";
@@ -47,8 +52,7 @@ namespace SiwesApp.Utils
         public const int Unauthorized = 14; 
         public const int LockedOut = 15; 
         public const int InvalidFileSize = 16; 
-        public const int CloudinaryFileDeleteError = 17; 
-
+        public const int CloudinaryFileDeleteError = 17;
 
         // User Roles
         public const string SiwesAdminRole = "SiwesAdmin";
@@ -60,5 +64,7 @@ namespace SiwesApp.Utils
         // Claim Types
         public const string ClaimType_UserType = "UserType";
         public const string ClaimType_UserEmail = "UserEmail";
+        public const string ClaimType_StudentId = "StudentId";
+
     }
 }

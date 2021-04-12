@@ -22,10 +22,12 @@ namespace SiwesApp.Models
         public string PhoneNumber { get; set; }
         public string PictureUrl { get; set; }
         public string Gender { get; set; }
+        public int? EligiblityStatus { get; set; }
         public DateTimeOffset DOB { get; set; }
         public string State { get; set; }
         public string LGA { get; set; }
         public string Address { get; set; }
         public virtual User User { get; set; }
+        public virtual Placement Placement { get; set; }
     }
 }

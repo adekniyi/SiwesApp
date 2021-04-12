@@ -47,7 +47,7 @@ namespace SiwesApp.Controllers
         }
 
         /// <summary>
-        /// Get All SiwesCo FOR AN Siwes Application
+        /// Get All SiwesCos FOR AN Siwes Application
         /// </summary>
         /// Get: api/siwesCo
         [HttpGet]

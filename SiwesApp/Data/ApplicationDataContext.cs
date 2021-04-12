@@ -52,24 +52,30 @@ namespace SiwesApp.Data
              .HasForeignKey<SiwesAdmin>(c => c.UserId)
              .IsRequired(false);
 
-         //   builder.Entity<SiwesCoordinator>()
-         //  .HasOne(a => a.User)
-         //  .WithOne(b => b.siwesCoordinator)
-         //  .HasForeignKey<SiwesCoordinator>(c => c.UserId)
-         //  .IsRequired(false);
+            builder.Entity<Placement>()
+            .HasOne(a => a.Student)
+            .WithOne(b => b.Placement)
+            .HasForeignKey<Placement>(c => c.StudentId)
+            .IsRequired(false);
 
-         //   builder.Entity<IndustrialSupervisor>()
-         //.HasOne(a => a.User)
-         //.WithOne(b => b.industrialSupervisor)
-         //.HasForeignKey<IndustrialSupervisor>(c => c.UserId)
-         //.IsRequired(false);
+            //   builder.Entity<SiwesCoordinator>()
+            //  .HasOne(a => a.User)
+            //  .WithOne(b => b.siwesCoordinator)
+            //  .HasForeignKey<SiwesCoordinator>(c => c.UserId)
+            //  .IsRequired(false);
+
+            //   builder.Entity<IndustrialSupervisor>()
+            //.HasOne(a => a.User)
+            //.WithOne(b => b.industrialSupervisor)
+            //.HasForeignKey<IndustrialSupervisor>(c => c.UserId)
+            //.IsRequired(false);
 
 
-         //   builder.Entity<Student>()
-         //       .HasOne(a => a.User)
-         //       .WithOne(b => b.Student)
-         //       .HasForeignKey<Student>(c => c.UserId)
-         //       .IsRequired(false);
+            //   builder.Entity<Student>()
+            //       .HasOne(a => a.User)
+            //       .WithOne(b => b.Student)
+            //       .HasForeignKey<Student>(c => c.UserId)
+            //       .IsRequired(false);
 
         }
         public DbSet<Student> Students { get; set; }
@@ -77,5 +83,6 @@ namespace SiwesApp.Data
         public DbSet<SiwesAdmin> SiwesAdmins { get; set; }
         public DbSet<SiwesCoordinator> SiwesCoordinators { get; set; }
         public DbSet<IndustrialSupervisor> IndustrialSupervisors { get; set; }
+        public DbSet<Placement> Placements { get; set; }
     }
 }

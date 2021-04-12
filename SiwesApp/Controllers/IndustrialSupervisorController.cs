@@ -47,7 +47,7 @@ namespace SiwesApp.Controllers
         }
 
         /// <summary>
-        /// Get All Industrial Supervisor FOR AN Siwes Application
+        /// Get All Industrial Supervisors FOR AN Siwes Application
         /// </summary>
         /// Get: api/industrialSupervisor
         [HttpGet]

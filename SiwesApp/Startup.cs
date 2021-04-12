@@ -102,6 +102,8 @@ namespace SiwesApp
             services.AddScoped<IIndustrialSupervisorRepo, IndustrialSupervisorRepo>();
             services.AddScoped<ICloudinaryRepository, CloudinaryRepository>();
 
+            services.AddHttpContextAccessor();
+
             services.AddControllers();
 
             services.AddMvc().AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);

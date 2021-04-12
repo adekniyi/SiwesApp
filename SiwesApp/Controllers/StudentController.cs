@@ -55,7 +55,7 @@ namespace SiwesApp.Controllers
 
 
         /// <summary>
-        /// Get All STUDENT FOR AN Siwes Application
+        /// Get All STUDENTs FOR AN Siwes Application
         /// </summary>
         /// Get: api/student
         [HttpGet]
@@ -93,5 +93,24 @@ namespace SiwesApp.Controllers
             }
         }
 
+        /// <summary>
+        /// CREATE A Placement For STUDENT 
+        /// </summary>
+        /// POST: api/student/placement
+        [HttpPost]
+        [Route("placement")]
+        public async Task<ActionResult> StudentPlacement([FromForm] PlacementRequestDto placementRequest)
+        {
+            var result = await _studentRepository.StudentPlacement(placementRequest);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
     }
 }

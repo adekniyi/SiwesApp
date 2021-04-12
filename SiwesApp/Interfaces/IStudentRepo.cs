@@ -12,5 +12,6 @@ namespace SiwesApp.Interfaces
         public Task<ToRespond> CreateStudent(StudentRequest studentRequest);
         public Task<ToRespond> GetAllStudents();
         public Task<ToRespond> GetOneStudent(int studentId);
+        public Task<ToRespond> StudentPlacement(PlacementRequestDto placementRequest);
     }
 }

@@ -33,6 +33,7 @@ namespace SiwesApp.Repositories
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ICloudinaryRepository _cloudinaryRepository;
 
+
         public StudentRepository(ApplicationDataContext dataContext, UserManager<User> userManager, 
             SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor, IConfiguration configuration,
             IWebHostEnvironment webHostEnvironment, IGlobalRepository globalRepository, IAuthenticationRepo authenticationRepository,
@@ -251,6 +252,90 @@ namespace SiwesApp.Repositories
                 StatusCode = Helpers.Success,
                 StatusMessage = Helpers.StatusMessageSuccess,
                 ObjectValue = _mapper.Map<StudentResponse>(student)
+            };
+        }
+
+        public async Task<ToRespond> StudentPlacement(PlacementRequestDto placementRequest)
+        {
+            if(placementRequest == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.ObjectNull,
+                    StatusMessage = Helpers.StatusMessageObjectNull
+                };
+            }
+
+            //var studentId = Int32.Parse(_httpContextAccessor.HttpContext.User.Claims
+            //                                .FirstOrDefault(x => x.Type == Helpers.ClaimType_StudentId)
+            //                                .Value);
+
+            var userId = Int32.Parse(_httpContextAccessor.HttpContext.User.Identity.Name);
+
+            var student = await _dataContext.Students.Where(a => a.UserId == userId).SingleOrDefaultAsync();
+            if(student == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+
+            }    
+            //var student = await _dataContext.Students.FindAsync(studentId);
+
+            var placement = new Placement
+            {
+                MatricNumber = placementRequest.MatricNumber,
+                FullName = placementRequest.FirstName + placementRequest.LastName,
+                RegistrationNumber = placementRequest.RegistrationNumber,
+                Department = placementRequest.Department,
+                Programm = placementRequest.Programm,
+                Level = placementRequest.Level,
+                CompanyName = placementRequest.CompanyName,
+                CompanyAddress = placementRequest.CompanyAddress,
+                SectionOfWork = placementRequest.SectionOfWork,
+                EmailAddressOfCompany = placementRequest.EmailAddressOfCompany,
+            };
+
+            if (placementRequest.OfferLetter != null || student.PictureUrl != null)
+            {
+                var resultImage = _cloudinaryRepository.UploadFileToCloudinary(placementRequest.OfferLetter);
+                var image = (RawUploadResult)resultImage.ObjectValue;
+                placement.OfferLetter = image.Uri.ToString();
+                placement.StudentPicture = student.PictureUrl;
+            }
+
+            var dbTransaction = await _dataContext.Database.BeginTransactionAsync();
+            _globalRepository.Add(placement);
+            student.EligiblityStatus = Helpers.Pending;
+            _dataContext.Entry(student).State = EntityState.Modified;
+            var result = await _globalRepository.SaveAll();
+
+             if (result != null)
+            {
+                if (!result.Value)
+                {
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.SaveError,
+                        StatusMessage = Helpers.StatusMessageSaveError
+                    };
+                }
+                await dbTransaction.CommitAsync();
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.Success,
+                    ObjectValue = _mapper.Map<PlacementResponse>(placement),
+                    StatusMessage = "Placement Registered Successfully!!!"
+                };
+
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = Helpers.StatusMessageSaveError
             };
         }
     }
