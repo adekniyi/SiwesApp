@@ -21,6 +21,7 @@ namespace SiwesApp.Dtos.StudentDto
         public string State { get; set; }
         public string LGA { get; set; }
         public string Address { get; set; }
+        public int EligiblityStatus { get; set; }
         public PlacementResponse Placement { get; set; }
 
 

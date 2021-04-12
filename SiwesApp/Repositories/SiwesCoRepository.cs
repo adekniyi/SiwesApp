@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CloudinaryDotNet.Actions;
+using SiwesApp.Dtos.StudentDto;
 
 namespace SiwesApp.Repositories
 {
@@ -248,6 +249,95 @@ namespace SiwesApp.Repositories
                 StatusCode = Helpers.Success,
                 StatusMessage = Helpers.StatusMessageSuccess,
                 ObjectValue = _mapper.Map<SiwesCoordinatorResponse>(siwesCo)
+            };
+        }
+
+        public async Task<ToRespond> MakePlacementEligible(int studentId)
+        {
+
+            var student = await _dataContext.Students.Where(x=>x.StudentId == studentId)
+                                                      .Where(x => x.EligiblityStatus == Helpers.Pending)
+                                                      .Include(x => x.Placement)
+                                                      .FirstOrDefaultAsync();
+            if (student == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            student.EligiblityStatus = Helpers.Eligible;
+            _dataContext.Entry(student).State = EntityState.Modified;
+            var result = await _globalRepository.SaveAll();
+            if (result != null)
+            {
+                if (!result.Value)
+                {
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.SaveError,
+                        StatusMessage = Helpers.StatusMessageSaveError
+                    };
+                }
+                // await dbTransaction.CommitAsync();
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.Success,
+                    ObjectValue = _mapper.Map<StudentResponse>(student),
+                };
+
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = Helpers.StatusMessageSaveError
+            };
+        }
+
+        public async Task<ToRespond> RejectPlacement(int studentId)
+        {
+            var student = await _dataContext.Students.Where(x => x.StudentId == studentId)
+                                                     .Where(x => x.EligiblityStatus == Helpers.Pending)
+                                                     .Include(x => x.Placement)
+                                                     .FirstOrDefaultAsync();
+            if (student == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            student.EligiblityStatus = Helpers.Rejected;
+            _dataContext.Entry(student).State = EntityState.Modified;
+            var result = await _globalRepository.SaveAll();
+            if (result != null)
+            {
+                if (!result.Value)
+                {
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.SaveError,
+                        StatusMessage = Helpers.StatusMessageSaveError
+                    };
+                }
+                // await dbTransaction.CommitAsync();
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.Success,
+                    ObjectValue = _mapper.Map<StudentResponse>(student),
+                };
+
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = Helpers.StatusMessageSaveError
             };
         }
     }

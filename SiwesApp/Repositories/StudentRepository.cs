@@ -346,7 +346,7 @@ namespace SiwesApp.Repositories
             var students = await _dataContext.Students.Where(x => x.EligiblityStatus == Helpers.Pending)
                                                 .Include(x => x.Placement)
                                                 .ToListAsync();
-            if (students == null)
+            if (!students.Any())
             {
                 return new ToRespond()
                 {

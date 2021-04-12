@@ -93,6 +93,18 @@
             </summary>
             Get: api/siwesCo/1
         </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.MakePlacementEligible(System.Int32)">
+            <summary>
+            Make Student Eligible For Placement
+            </summary>
+            Get: api/siwesCo/eligible/1
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.RejectPlacement(System.Int32)">
+            <summary>
+            Reject Student Placement
+            </summary>
+            Get: api/siwesCo/reject/1
+        </member>
         <member name="M:SiwesApp.Controllers.StudentController.CreateStudent(SiwesApp.Dtos.StudentDto.StudentRequest)">
             <summary>
             CREATE A STUDENT FOR AN Siwes Application
@@ -122,6 +134,18 @@
             Get All Pending STUDENTs Placement FOR AN Siwes Application
             </summary>
             Get: api/student/placement/pending
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.GetAllEliigibleStudentsPlacement">
+            <summary>
+            Get All Eligible STUDENTs Placement FOR AN Siwes Application
+            </summary>
+            Get: api/student/placement/eligible
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.GetAllRejectedStudentsPlacement">
+            <summary>
+            Get All Rejected STUDENTs Placement FOR AN Siwes Application
+            </summary>
+            Get: api/student/placement/rejected
         </member>
     </members>
 </doc>

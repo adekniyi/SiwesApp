@@ -85,5 +85,45 @@ namespace SiwesApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Make Student Eligible For Placement
+        /// </summary>
+        /// Get: api/siwesCo/eligible/1
+        [HttpGet]
+        [Route("eligible/{studentId}")]
+        public async Task<ActionResult> MakePlacementEligible(int studentId)
+        {
+            var result = await _siwesCoRepository.MakePlacementEligible(studentId);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Reject Student Placement
+        /// </summary>
+        /// Get: api/siwesCo/reject/1
+        [HttpGet]
+        [Route("reject/{studentId}")]
+        public async Task<ActionResult> RejectPlacement(int studentId)
+        {
+            var result = await _siwesCoRepository.RejectPlacement(studentId);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
     }
 }
