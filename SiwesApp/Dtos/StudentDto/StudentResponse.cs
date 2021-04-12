@@ -9,6 +9,7 @@ namespace SiwesApp.Dtos.StudentDto
     {
         public int StudentId { get; set; }
         public string LastName { get; set; }
+        public string FirstName { get; set; }
         public int MatricNumber { get; set; }
         public string Department { get; set; }
         public string Level { get; set; }
@@ -20,6 +21,8 @@ namespace SiwesApp.Dtos.StudentDto
         public string State { get; set; }
         public string LGA { get; set; }
         public string Address { get; set; }
+        public PlacementResponse Placement { get; set; }
+
 
     }
 }

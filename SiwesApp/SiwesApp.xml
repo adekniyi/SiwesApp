@@ -117,5 +117,11 @@
             </summary>
             POST: api/student/placement
         </member>
+        <member name="M:SiwesApp.Controllers.StudentController.GetAllPendingStudentsPlacement">
+            <summary>
+            Get All Pending STUDENTs Placement FOR AN Siwes Application
+            </summary>
+            Get: api/student/placement/pending
+        </member>
     </members>
 </doc>

@@ -27,6 +27,7 @@ namespace SiwesApp.Models
         public string State { get; set; }
         public string LGA { get; set; }
         public string Address { get; set; }
+        public int? PlacementId { get; set; }
         public virtual User User { get; set; }
         public virtual Placement Placement { get; set; }
     }

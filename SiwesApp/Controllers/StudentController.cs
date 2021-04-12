@@ -112,5 +112,65 @@ namespace SiwesApp.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, result);
             }
         }
+
+        /// <summary>
+        /// Get All Pending STUDENTs Placement FOR AN Siwes Application
+        /// </summary>
+        /// Get: api/student/placement/pending
+        [HttpGet]
+        [Route("placement/pending")]
+        public async Task<ActionResult> GetAllPendingStudentsPlacement()
+        {
+            var result = await _studentRepository.GetAllPendingStudentsPlacement();
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Get All Eligible STUDENTs Placement FOR AN Siwes Application
+        /// </summary>
+        /// Get: api/student/placement/eligible
+        [HttpGet]
+        [Route("placement/eligible")]
+        public async Task<ActionResult> GetAllEliigibleStudentsPlacement()
+        {
+            var result = await _studentRepository.GetAllEliigibleStudentsPlacement();
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Get All Rejected STUDENTs Placement FOR AN Siwes Application
+        /// </summary>
+        /// Get: api/student/placement/rejected
+        [HttpGet]
+        [Route("placement/rejected")]
+        public async Task<ActionResult> GetAllRejectedStudentsPlacement()
+        {
+            var result = await _studentRepository.GetAllRejectedStudentsPlacement();
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
     }
 }

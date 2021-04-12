@@ -309,8 +309,10 @@ namespace SiwesApp.Repositories
             var dbTransaction = await _dataContext.Database.BeginTransactionAsync();
             _globalRepository.Add(placement);
             student.EligiblityStatus = Helpers.Pending;
-            _dataContext.Entry(student).State = EntityState.Modified;
+            student.Placement = placement;
             var result = await _globalRepository.SaveAll();
+            student.PlacementId = placement.PlacementId;
+            _dataContext.Entry(student).State = EntityState.Modified;
 
              if (result != null)
             {
@@ -336,6 +338,69 @@ namespace SiwesApp.Repositories
             {
                 StatusCode = Helpers.SaveError,
                 StatusMessage = Helpers.StatusMessageSaveError
+            };
+        }
+
+        public async Task<ToRespond> GetAllPendingStudentsPlacement()
+        {
+            var students = await _dataContext.Students.Where(x => x.EligiblityStatus == Helpers.Pending)
+                                                .Include(x => x.Placement)
+                                                .ToListAsync();
+            if (students == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                ObjectValue = _mapper.Map<List<StudentResponse>>(students),
+            };
+        }
+
+        public async Task<ToRespond> GetAllEliigibleStudentsPlacement()
+        {
+            var students = await _dataContext.Students.Where(x => x.EligiblityStatus == Helpers.Eligible)
+                                                .Include(x => x.Placement)
+                                                .ToListAsync();
+            if (students == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                ObjectValue = _mapper.Map<List<StudentResponse>>(students),
+            };
+        }
+
+        public async Task<ToRespond> GetAllRejectedStudentsPlacement()
+        {
+            var students = await _dataContext.Students.Where(x => x.EligiblityStatus == Helpers.Rejected)
+                                               .Include(x => x.Placement)
+                                               .ToListAsync();
+            if (students == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                ObjectValue = _mapper.Map<List<StudentResponse>>(students),
             };
         }
     }
