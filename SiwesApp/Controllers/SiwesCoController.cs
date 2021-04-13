@@ -125,5 +125,25 @@ namespace SiwesApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Assign Students To Lecturer FOR A Siwes Application
+        /// </summary>
+        /// POST: api/siwescoordinator/assignstudentToLecturer
+        [HttpPost]
+        [Route("assignstudentToLecturer")]
+        public async Task<ActionResult> AssignStudentToLecturer([FromBody] AssignStudentToLecturerRequest assignStudentToLecturer)
+        {
+            var result = await _siwesCoRepository.AssignStudentToLecturer(assignStudentToLecturer);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
     }
 }

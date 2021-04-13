@@ -105,6 +105,12 @@
             </summary>
             Get: api/siwesCo/reject/1
         </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.AssignStudentToLecturer(SiwesApp.Dtos.SiwesCoOrdinatotDto.AssignStudentToLecturerRequest)">
+            <summary>
+            Assign Students To Lecturer FOR A Siwes Application
+            </summary>
+            POST: api/siwescoordinator/assignstudentToLecturer
+        </member>
         <member name="M:SiwesApp.Controllers.StudentController.CreateStudent(SiwesApp.Dtos.StudentDto.StudentRequest)">
             <summary>
             CREATE A STUDENT FOR AN Siwes Application

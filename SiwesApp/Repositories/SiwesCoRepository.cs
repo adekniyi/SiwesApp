@@ -340,5 +340,88 @@ namespace SiwesApp.Repositories
                 StatusMessage = Helpers.StatusMessageSaveError
             };
         }
+
+        public async Task<ToRespond> AssignStudentToLecturer(AssignStudentToLecturerRequest assignStudentToLecturer)
+        {
+            if(assignStudentToLecturer == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            List<Student> allStudents = new List<Student>();
+            var assignStudentsToLecturer = new AssignStudentToLecturer();
+
+            foreach (var studentId in assignStudentToLecturer.Students)
+            {
+                var student = _dataContext.Students.Where(x => x.StudentId == studentId).FirstOrDefault();
+
+                if (student == null)
+                {
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.NotFound,
+                        StatusMessage = Helpers.StatusMessageNotFound
+                    };
+                }
+
+                allStudents.Add(student);
+                //assignStudentsToLecturer.StudentId = studentId;
+            }
+
+            assignStudentsToLecturer.Student = allStudents;
+            var lecturer = _dataContext.Lecturers.Where(x => x.LecturerId == assignStudentToLecturer.Lecturer).FirstOrDefault();
+            //var IndustrialSupervisor = _dataContext.IndustrialSupervisors.Where(x => x.IndustrialSupervisorId == assignStudentToLecturer.IndustrialSupervisorId).FirstOrDefault();
+
+            if (lecturer == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+            assignStudentsToLecturer.LecturerId = assignStudentToLecturer.Lecturer;
+            assignStudentsToLecturer.Lecturer = lecturer;
+            assignStudentsToLecturer.IndustrialSupervisorId = assignStudentToLecturer.IndustrialSupervisorId;
+
+
+            //var assignStudentsToLecturer = _mapper.Map<AssignStudentToLecturer>(assignStudentToLecturer);
+            //assignStudentsToLecturer.Student = allStudents;
+            foreach(var stu in assignStudentsToLecturer.Student)
+            {
+                assignStudentsToLecturer.StudentId = stu.StudentId;
+
+                _globalRepository.Add(assignStudentsToLecturer);
+                var result = await _globalRepository.SaveAll();
+                if (result != null)
+                {
+                    if (!result.Value)
+                    {
+                        return new ToRespond()
+                        {
+                            StatusCode = Helpers.SaveError,
+                            StatusMessage = Helpers.StatusMessageSaveError
+                        };
+                    }
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.Success,
+                        ObjectValue = _mapper.Map<AssignStudentToLecturerResponse>(assignStudentsToLecturer),
+                        StatusMessage = "Students Assigned To Lecturer Successfully"
+                    };
+
+                }
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = Helpers.StatusMessageSaveError
+            };
+        }
     }
 }

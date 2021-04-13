@@ -22,5 +22,7 @@ namespace SiwesApp.Models
         public string CompanyAddress { get; set; }
         public string SectionOfWork { get; set; }
         public virtual User User { get; set; }
+        public virtual List<AssignStudentToLecturer> Student { get; set; }
+
     }
 }

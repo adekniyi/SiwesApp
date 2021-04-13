@@ -30,5 +30,6 @@ namespace SiwesApp.Models
         public int? PlacementId { get; set; }
         public virtual User User { get; set; }
         public virtual Placement Placement { get; set; }
+        public virtual AssignStudentToLecturer AssignStudentToLecturer { get; set; }
     }
 }

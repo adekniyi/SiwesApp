@@ -38,7 +38,23 @@ namespace SiwesApp.Data
                 .IsRequired(false);
             });
 
+            builder.Entity<AssignStudentToLecturer>()
+               .HasOne(a => a.Lecturer)
+               .WithMany(b => b.Student)
+               .HasForeignKey(c => c.LecturerId)
+               .IsRequired(true);
 
+            builder.Entity<AssignStudentToLecturer>()
+                .HasOne(a => a.IndustrialSupervisor)
+                .WithMany(b => b.Student)
+                .HasForeignKey(c => c.IndustrialSupervisorId)
+                .IsRequired(false);
+
+            //builder.Entity<AssignStudentToLecturer>()
+            //    .HasMany(a => a.Student)
+            //    .WithOne(b => b.AssignStudentToLecturer)
+            //    .HasForeignKey(c => c.StudentId)
+            //    .IsRequired(false);
 
             //builder.Entity<Lecturer>()
             //    .HasOne(a => a.User)
@@ -84,5 +100,6 @@ namespace SiwesApp.Data
         public DbSet<SiwesCoordinator> SiwesCoordinators { get; set; }
         public DbSet<IndustrialSupervisor> IndustrialSupervisors { get; set; }
         public DbSet<Placement> Placements { get; set; }
+        public DbSet<AssignStudentToLecturer> AssignStudentToLecturers { get; set; }
     }
 }

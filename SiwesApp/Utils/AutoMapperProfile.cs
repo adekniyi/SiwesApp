@@ -40,6 +40,10 @@ namespace SiwesApp.Utils
             CreateMap<Placement, PlacementResponse>();
             CreateMap<PlacementResponse, Placement>();
 
+            CreateMap<AssignStudentToLecturerRequest, AssignStudentToLecturer>();
+            CreateMap<AssignStudentToLecturer, AssignStudentToLecturerResponse>();
+            CreateMap<AssignStudentToLecturerResponse, AssignStudentToLecturer>();
+
             //CreateMap<User, UserDetails>();
             CreateMap<User, UserToReturn>();
             CreateMap<User, UserDetails>();
