@@ -145,5 +145,44 @@ namespace SiwesApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Get A Student Log Books
+        /// </summary>
+        /// Get: api/siwescoordinator/studentlogbook/1
+        [HttpGet]
+        [Route("studentlogbook/{studentId}")]
+        public async Task<ActionResult> GetStudentLogBooks(int studentId)
+        {
+            var result = await _siwesCoRepository.GetStudentLogBooks(studentId);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Get A Student Log Book
+        /// </summary>
+        /// Get: api/siwescoordinator/studentlogbook/1/1
+        [HttpGet]
+        [Route("studentlogbook/{studentId}/{logBookId}")]
+        public async Task<ActionResult> GetStudentLogBook(int studentId, int logBookId)
+        {
+            var result = await _siwesCoRepository.GetStudentLogBook(studentId, logBookId);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
     }
 }

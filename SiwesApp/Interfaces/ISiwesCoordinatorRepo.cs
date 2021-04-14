@@ -15,6 +15,8 @@ namespace SiwesApp.Interfaces
         public Task<ToRespond> MakePlacementEligible(int studentId);
         public Task<ToRespond> RejectPlacement(int studentId);
         public Task<ToRespond> AssignStudentToLecturer(AssignStudentToLecturerRequest assignStudentToLecturer);
+        public Task<ToRespond> GetStudentLogBooks(int studentId);
+        public Task<ToRespond> GetStudentLogBook(int studentId, int logBookId);
 
     }
 }

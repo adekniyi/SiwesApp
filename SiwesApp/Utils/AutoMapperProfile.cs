@@ -46,7 +46,13 @@ namespace SiwesApp.Utils
 
             CreateMap<LogBookRequest, LogBook>();
             CreateMap<LogBook, LogBookResponse>();
-            //CreateMap<LogBookResponse, LogBook>();
+
+            CreateMap<AssignStudentToLecturerRequest, StudentLogBook>();
+            CreateMap<StudentLogBook, AssignStudentToLecturerRequest>();
+
+            CreateMap<Student, StudentLogBook>();
+            CreateMap<StudentLogBook, Student>();
+            CreateMap<LogBookResponse, Student>();
 
             //CreateMap<User, UserDetails>();
             CreateMap<User, UserToReturn>();

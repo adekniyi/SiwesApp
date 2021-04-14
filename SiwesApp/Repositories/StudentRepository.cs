@@ -433,9 +433,22 @@ namespace SiwesApp.Repositories
                 var logbook = _mapper.Map<LogBook>(logBookRequest);
                 logbook.StudentId = student.StudentId;
                 logbook.Student = student;
+                //student.LogBook.Add(logbook);
 
                 _globalRepository.Add(logbook);
                 var result = await _globalRepository.SaveAll();
+
+
+                foreach (var stuLogBook in student.LogBook)
+                {
+                    stuLogBook.LogBookId = logbook.LogBookId;
+                    stuLogBook.Student = student;
+                    stuLogBook.StudentId = student.StudentId;
+                    stuLogBook.Time = logbook.Time;
+                    stuLogBook.Description = logbook.Description;
+                }
+
+                _dataContext.Entry(student).State = EntityState.Modified;
 
                 if (result != null)
                 {

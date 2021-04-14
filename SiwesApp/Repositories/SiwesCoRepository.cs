@@ -17,6 +17,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CloudinaryDotNet.Actions;
 using SiwesApp.Dtos.StudentDto;
+using SiwesApp.Dtos.LecturerDto;
 
 namespace SiwesApp.Repositories
 {
@@ -424,5 +425,71 @@ namespace SiwesApp.Repositories
             };
         }
 
+        public async Task<ToRespond> GetStudentLogBooks(int studentId)
+        {
+            var student = _dataContext.Students.Where(x => x.StudentId == studentId)
+                                                .Include(x => x.LogBook)
+                                                .FirstOrDefault();
+
+            var assignedStudent = _dataContext.AssignStudentToLecturers.Where(x => x.StudentId == studentId)
+                                                                       .SingleOrDefault();
+
+            var lecturer = _dataContext.Lecturers.Find(assignedStudent.LecturerId);
+
+            if (student == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.ObjectNull,
+                    StatusMessage = Helpers.StatusMessageObjectNull
+                };
+            }
+
+            var studentlogbook = _mapper.Map<StudentLogBook>(student);
+            var lecturerRes = _mapper.Map<LecturerResponse>(lecturer);
+            studentlogbook.Lecturer = lecturerRes;
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                StatusMessage = Helpers.StatusMessageSuccess,
+                ObjectValue = studentlogbook
+                //new
+                //{
+                //    studentlogbook,
+                //    lecturerRes
+                //}
+            };
+        }
+
+        public async Task<ToRespond> GetStudentLogBook(int studentId, int logBookId)
+        {
+            var student = await _dataContext.Students.Where(x => x.StudentId == studentId)
+                                               .FirstOrDefaultAsync();
+
+            if (student == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.ObjectNull,
+                    StatusMessage = Helpers.StatusMessageObjectNull
+                };
+            }
+
+            //var studentLogBook = new StudentLogBook
+            //{
+            //    Lecturer = assignedStudent.Lecturer
+
+            //}
+
+            //var studentLogBook = _mapper.Map<StudentLogBook>(student);
+            //studentLogBook.Lecturer = assignedStudent.Lecturer;
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                StatusMessage = Helpers.StatusMessageSuccess,
+                ObjectValue = _mapper.Map<StudentLogBook>(student)
+            };
+        }
     }
 }

@@ -111,6 +111,18 @@
             </summary>
             POST: api/siwescoordinator/assignstudentToLecturer
         </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.GetStudentLogBooks(System.Int32)">
+            <summary>
+            Get A Student Log Books
+            </summary>
+            Get: api/siwescoordinator/studentlogbook/1
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.GetStudentLogBook(System.Int32,System.Int32)">
+            <summary>
+            Get A Student Log Book
+            </summary>
+            Get: api/siwescoordinator/studentlogbook/1/1
+        </member>
         <member name="M:SiwesApp.Controllers.StudentController.CreateStudent(SiwesApp.Dtos.StudentDto.StudentRequest)">
             <summary>
             CREATE A STUDENT FOR AN Siwes Application
