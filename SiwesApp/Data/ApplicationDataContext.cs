@@ -74,6 +74,13 @@ namespace SiwesApp.Data
             .HasForeignKey<Placement>(c => c.StudentId)
             .IsRequired(false);
 
+           // builder.Entity<LogBook>()
+           //.HasOne(a => a.Student)
+           //.WithMany(b => b.LogBook)
+           //.HasForeignKey<LogBook>(c => c.StudentId)
+           //.IsRequired(false);
+
+
             //   builder.Entity<SiwesCoordinator>()
             //  .HasOne(a => a.User)
             //  .WithOne(b => b.siwesCoordinator)
@@ -101,5 +108,6 @@ namespace SiwesApp.Data
         public DbSet<IndustrialSupervisor> IndustrialSupervisors { get; set; }
         public DbSet<Placement> Placements { get; set; }
         public DbSet<AssignStudentToLecturer> AssignStudentToLecturers { get; set; }
+        public DbSet<LogBook> LogBooks { get; set; }
     }
 }

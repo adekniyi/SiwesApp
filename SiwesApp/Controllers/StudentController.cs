@@ -172,5 +172,25 @@ namespace SiwesApp.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, result);
             }
         }
+
+        /// <summary>
+        /// Fill A Student Log Book
+        /// </summary>
+        /// POST: api/student/logbook
+        [HttpPost]
+        [Route("logbook")]
+        public async Task<ActionResult> FillLogBook([FromBody] LogBookRequest logBookRequest)
+        {
+            var result = await _studentRepository.FillLogBook(logBookRequest);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
     }
 }

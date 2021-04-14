@@ -403,5 +403,73 @@ namespace SiwesApp.Repositories
                 ObjectValue = _mapper.Map<List<StudentResponse>>(students),
             };
         }
+
+        public async Task<ToRespond> FillLogBook(LogBookRequest logBookRequest)
+        {
+            if(logBookRequest == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            var userId = Int32.Parse(_httpContextAccessor.HttpContext.User.Identity.Name);
+
+            var student = await _dataContext.Students.Where(a => a.UserId == userId).SingleOrDefaultAsync();
+            if (student == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+
+            }
+
+            if(student.EligiblityStatus == Helpers.Eligible)
+            {
+                var logbook = _mapper.Map<LogBook>(logBookRequest);
+                logbook.StudentId = student.StudentId;
+                logbook.Student = student;
+
+                _globalRepository.Add(logbook);
+                var result = await _globalRepository.SaveAll();
+
+                if (result != null)
+                {
+                    if (!result.Value)
+                    {
+                        return new ToRespond()
+                        {
+                            StatusCode = Helpers.SaveError,
+                            StatusMessage = Helpers.StatusMessageSaveError
+                        };
+                    }
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.Success,
+                        ObjectValue = _mapper.Map<LogBookResponse>(logbook),
+                        StatusMessage = "Student LogBook created Successfully!!!"
+                    };
+
+                }
+            }
+            else
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.SaveError,
+                    StatusMessage = "Non Eligible Student Cannot fill the form"
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = Helpers.StatusMessageSaveError
+            };
+        }
     }
 }

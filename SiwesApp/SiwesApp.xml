@@ -153,5 +153,11 @@
             </summary>
             Get: api/student/placement/rejected
         </member>
+        <member name="M:SiwesApp.Controllers.StudentController.FillLogBook(SiwesApp.Dtos.StudentDto.LogBookRequest)">
+            <summary>
+            Fill A Student Log Book
+            </summary>
+            POST: api/student/logbook
+        </member>
     </members>
 </doc>
