@@ -454,20 +454,21 @@ namespace SiwesApp.Repositories
                 StatusCode = Helpers.Success,
                 StatusMessage = Helpers.StatusMessageSuccess,
                 ObjectValue = studentlogbook
-                //new
-                //{
-                //    studentlogbook,
-                //    lecturerRes
-                //}
             };
         }
 
         public async Task<ToRespond> GetStudentLogBook(int studentId, int logBookId)
         {
-            var student = await _dataContext.Students.Where(x => x.StudentId == studentId)
-                                               .FirstOrDefaultAsync();
+            var studentLogBook = await _dataContext.Students.Where(x => x.StudentId == studentId)
+                                                    .Where(x=>x.LogBookId == logBookId)
+                                                    .FirstOrDefaultAsync();
 
-            if (student == null)
+            var assignedStudent = _dataContext.AssignStudentToLecturers.Where(x => x.StudentId == studentId)
+                                                                       .SingleOrDefault();
+
+            var lecturer = _dataContext.Lecturers.Find(assignedStudent.LecturerId);
+
+            if (studentLogBook == null)
             {
                 return new ToRespond
                 {
@@ -476,19 +477,15 @@ namespace SiwesApp.Repositories
                 };
             }
 
-            //var studentLogBook = new StudentLogBook
-            //{
-            //    Lecturer = assignedStudent.Lecturer
+            var studentlogbook = _mapper.Map<StudentLogBook>(studentLogBook);
+            var lecturerRes = _mapper.Map<LecturerResponse>(lecturer);
+            studentlogbook.Lecturer = lecturerRes;
 
-            //}
-
-            //var studentLogBook = _mapper.Map<StudentLogBook>(student);
-            //studentLogBook.Lecturer = assignedStudent.Lecturer;
             return new ToRespond()
             {
                 StatusCode = Helpers.Success,
                 StatusMessage = Helpers.StatusMessageSuccess,
-                ObjectValue = _mapper.Map<StudentLogBook>(student)
+                ObjectValue = studentlogbook
             };
         }
     }

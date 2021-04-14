@@ -13,6 +13,7 @@ namespace SiwesApp.Models
         [Key]
         public int StudentId { get; set; }
         public int UserId { get; set; }
+        public int? LogBookId { get; set; }
         public string FirstName { get; set; }
         public int MatricNumber { get; set; }
         public string Department { get; set; }
