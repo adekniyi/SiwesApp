@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CloudinaryDotNet.Actions;
+using SiwesApp.Dtos.CommentAndGrade;
 
 namespace SiwesApp.Repositories
 {
@@ -245,6 +246,26 @@ namespace SiwesApp.Repositories
                 StatusMessage = Helpers.StatusMessageSuccess,
                 ObjectValue = _mapper.Map<LecturerResponse>(lecturer)
             };
+        }
+
+        public async Task<ToRespond> LogBookComment(int logBookId, CommentRequest commentRequest)
+        {
+            var logBook = _dataContext.LogBooks.FindAsync(logBookId);
+            if(logBook==null|| commentRequest == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.ObjectNull,
+                    StatusMessage = Helpers.StatusMessageObjectNull
+                };
+            }
+
+
+        }
+
+        public Task<ToRespond> LogBookGrade(int logBookId, GradeRequest gradeRequest)
+        {
+            throw new NotImplementedException();
         }
     }
 }

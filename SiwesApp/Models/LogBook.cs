@@ -13,5 +13,7 @@ namespace SiwesApp.Models
         public String Time { get; set; }
         public string Description { get; set; }
         public virtual Student Student { get; set; }
+        public virtual List<Comment> Comment { get; set; }
+        public virtual List<Grade> Grade { get; set; }
     }
 }

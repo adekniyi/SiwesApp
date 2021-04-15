@@ -198,18 +198,14 @@ namespace SiwesApp.Repositories
                 StatusMessage = Helpers.StatusMessageSaveError
             };
         }
-
-
         private string GetHashedEmail(string emailVal)
         {
             return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(emailVal));
         }
-
         public async Task<bool> SiwesCoordinatorExists(string email)
         {
             return await _userManager.Users.AnyAsync(x => x.Email.ToUpper() == email.ToUpper());
         }
-
         public async Task<ToRespond> GetAllSiwesCos()
         {
             var siwesCo = await _dataContext.SiwesCoordinators.ToListAsync();
@@ -231,7 +227,6 @@ namespace SiwesApp.Repositories
                 ObjectValue = _mapper.Map<List<SiwesCoordinatorResponse>>(siwesCo)
             };
         }
-
         public async Task<ToRespond> GetOneSiwesCo(int siwesCoId)
         {
             var siwesCo = await _dataContext.SiwesCoordinators.FindAsync(siwesCoId);
@@ -252,7 +247,6 @@ namespace SiwesApp.Repositories
                 ObjectValue = _mapper.Map<SiwesCoordinatorResponse>(siwesCo)
             };
         }
-
         public async Task<ToRespond> MakePlacementEligible(int studentId)
         {
 
@@ -297,7 +291,6 @@ namespace SiwesApp.Repositories
                 StatusMessage = Helpers.StatusMessageSaveError
             };
         }
-
         public async Task<ToRespond> RejectPlacement(int studentId)
         {
             var student = await _dataContext.Students.Where(x => x.StudentId == studentId)
@@ -341,7 +334,6 @@ namespace SiwesApp.Repositories
                 StatusMessage = Helpers.StatusMessageSaveError
             };
         }
-
         public async Task<ToRespond> AssignStudentToLecturer(AssignStudentToLecturerRequest assignStudentToLecturer)
         {
             if(assignStudentToLecturer == null)
@@ -424,7 +416,6 @@ namespace SiwesApp.Repositories
                 StatusMessage = Helpers.StatusMessageSaveError
             };
         }
-
         public async Task<ToRespond> GetStudentLogBooks(int studentId)
         {
             var student = _dataContext.Students.Where(x => x.StudentId == studentId)
@@ -456,7 +447,6 @@ namespace SiwesApp.Repositories
                 ObjectValue = studentlogbook
             };
         }
-
         public async Task<ToRespond> GetStudentLogBook(int studentId, int logBookId)
         {
             var studentLogBook = await _dataContext.Students.Where(x => x.StudentId == studentId)
@@ -488,5 +478,6 @@ namespace SiwesApp.Repositories
                 ObjectValue = studentlogbook
             };
         }
+
     }
 }

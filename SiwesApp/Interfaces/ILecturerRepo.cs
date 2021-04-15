@@ -1,4 +1,5 @@
 ﻿using SiwesApp.Dtos.All;
+using SiwesApp.Dtos.CommentAndGrade;
 using SiwesApp.Dtos.LecturerDto;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,8 @@ namespace SiwesApp.Interfaces
         public Task<ToRespond> CreateLecturer(LecturerRequest lecturerRequest);
         public Task<ToRespond> GetAllLecturers();
         public Task<ToRespond> GetOneLecturer(int lecturerId);
+        public Task<ToRespond> LogBookComment(int logBookId,CommentRequest commentRequest);
+        public Task<ToRespond> LogBookGrade(int logBookId, GradeRequest gradeRequest);
+
     }
 }
