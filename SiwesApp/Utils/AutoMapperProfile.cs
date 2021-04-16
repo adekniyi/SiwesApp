@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SiwesApp.Dtos.All;
+using SiwesApp.Dtos.CommentAndGrade;
 using SiwesApp.Dtos.IndustrialSupervisorDto;
 using SiwesApp.Dtos.LecturerDto;
 using SiwesApp.Dtos.SiwesAdmin;
@@ -53,6 +54,11 @@ namespace SiwesApp.Utils
             CreateMap<Student, StudentLogBook>();
             CreateMap<StudentLogBook, Student>();
             CreateMap<LogBookResponse, Student>();
+
+            //CreateMap<CommentResponse, Comment>();
+            CreateMap<Comment, CommentResponse>();
+
+            CreateMap<Grade, GradeResponse>();
 
             //CreateMap<User, UserDetails>();
             CreateMap<User, UserToReturn>();

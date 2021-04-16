@@ -10,8 +10,8 @@ using SiwesApp.Data;
 namespace SiwesApp.Migrations
 {
     [DbContext(typeof(ApplicationDataContext))]
-    [Migration("20210413144311_ImplimentingLogBook")]
-    partial class ImplimentingLogBook
+    [Migration("20210416111921_Initial-migration")]
+    partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -132,6 +132,75 @@ namespace SiwesApp.Migrations
                     b.ToTable("AssignStudentToLecturers");
                 });
 
+            modelBuilder.Entity("SiwesApp.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CommentDetail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CommentterId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IndustrialSupervisorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LecturerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LogBookId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("IndustrialSupervisorId");
+
+                    b.HasIndex("LecturerId");
+
+                    b.HasIndex("LogBookId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("SiwesApp.Models.Grade", b =>
+                {
+                    b.Property<int>("GradeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GraderId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IndustrialSupervisorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LecturerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LogBookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ObtainableGrade")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ObtainedGrade")
+                        .HasColumnType("int");
+
+                    b.HasKey("GradeId");
+
+                    b.HasIndex("IndustrialSupervisorId");
+
+                    b.HasIndex("LecturerId");
+
+                    b.HasIndex("LogBookId");
+
+                    b.ToTable("Grades");
+                });
+
             modelBuilder.Entity("SiwesApp.Models.IndustrialSupervisor", b =>
                 {
                     b.Property<int>("IndustrialSupervisorId")
@@ -226,8 +295,8 @@ namespace SiwesApp.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("Time")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<string>("Time")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LogBookId");
 
@@ -435,6 +504,9 @@ namespace SiwesApp.Migrations
                     b.Property<string>("Level")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("LogBookId")
+                        .HasColumnType("int");
+
                     b.Property<int>("MatricNumber")
                         .HasColumnType("int");
 
@@ -618,6 +690,40 @@ namespace SiwesApp.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SiwesApp.Models.Comment", b =>
+                {
+                    b.HasOne("SiwesApp.Models.IndustrialSupervisor", "IndustrialSupervisor")
+                        .WithMany()
+                        .HasForeignKey("IndustrialSupervisorId");
+
+                    b.HasOne("SiwesApp.Models.Lecturer", "Lecturer")
+                        .WithMany()
+                        .HasForeignKey("LecturerId");
+
+                    b.HasOne("SiwesApp.Models.LogBook", "LogBook")
+                        .WithMany("Comment")
+                        .HasForeignKey("LogBookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SiwesApp.Models.Grade", b =>
+                {
+                    b.HasOne("SiwesApp.Models.IndustrialSupervisor", "IndustrialSupervisor")
+                        .WithMany()
+                        .HasForeignKey("IndustrialSupervisorId");
+
+                    b.HasOne("SiwesApp.Models.Lecturer", "Lecturer")
+                        .WithMany()
+                        .HasForeignKey("LecturerId");
+
+                    b.HasOne("SiwesApp.Models.LogBook", "LogBook")
+                        .WithMany("Grade")
+                        .HasForeignKey("LogBookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("SiwesApp.Models.IndustrialSupervisor", b =>
                 {
                     b.HasOne("SiwesApp.Models.User", "User")
@@ -639,7 +745,7 @@ namespace SiwesApp.Migrations
             modelBuilder.Entity("SiwesApp.Models.LogBook", b =>
                 {
                     b.HasOne("SiwesApp.Models.Student", "Student")
-                        .WithMany()
+                        .WithMany("LogBook")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

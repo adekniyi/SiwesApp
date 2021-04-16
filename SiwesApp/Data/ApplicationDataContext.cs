@@ -109,5 +109,7 @@ namespace SiwesApp.Data
         public DbSet<Placement> Placements { get; set; }
         public DbSet<AssignStudentToLecturer> AssignStudentToLecturers { get; set; }
         public DbSet<LogBook> LogBooks { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Grade> Grades { get; set; }
     }
 }

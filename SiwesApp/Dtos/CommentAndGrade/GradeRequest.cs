@@ -7,6 +7,8 @@ namespace SiwesApp.Dtos.CommentAndGrade
 {
     public class GradeRequest
     {
-        public int GradeValue { get; set; }
+        public int ObtainedGrade { get; set; }
+        public int ObtainableGrade { get; set; }
+
     }
 }

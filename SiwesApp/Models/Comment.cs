@@ -8,7 +8,7 @@ namespace SiwesApp.Models
     public class Comment
     {
         public int CommentId { get; set; }
-        public string CommentterId { get; set; }
+        public int CommentterId { get; set; }
         public string CommentDetail { get; set; }
         public int LogBookId { get; set; }
         public virtual Lecturer Lecturer { get; set; }

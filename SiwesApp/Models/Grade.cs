@@ -9,7 +9,8 @@ namespace SiwesApp.Models
     {
         public int GradeId { get; set; }
         public int GraderId { get; set; }
-        public int GradeValue { get; set; }
+        public int ObtainedGrade { get; set; }
+        public int ObtainableGrade { get; set; }
         public int LogBookId { get; set; }
         public virtual Lecturer Lecturer { get; set; }
         public virtual IndustrialSupervisor IndustrialSupervisor { get; set; }

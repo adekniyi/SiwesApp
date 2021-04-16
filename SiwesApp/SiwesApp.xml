@@ -45,6 +45,18 @@
             </summary>
             Get: api/lecturer/1
         </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.LogBookComment(System.Int32,SiwesApp.Dtos.CommentAndGrade.CommentRequest)">
+            <summary>
+            Comment On Student Log Book
+            </summary>
+            POST: api/lecturer/comment/1
+        </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.LogBookGrade(System.Int32,SiwesApp.Dtos.CommentAndGrade.GradeRequest)">
+            <summary>
+            Comment On Student Log Book
+            </summary>
+            POST: api/lecturer/comment/1
+        </member>
         <member name="M:SiwesApp.Controllers.RoleController.PostRoles(System.Collections.Generic.List{SiwesApp.Dtos.All.RoleRequest})">
             <summary>
             CREATE ROLE

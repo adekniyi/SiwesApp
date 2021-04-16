@@ -250,7 +250,7 @@ namespace SiwesApp.Repositories
 
         public async Task<ToRespond> LogBookComment(int logBookId, CommentRequest commentRequest)
         {
-            var logBook = _dataContext.LogBooks.FindAsync(logBookId);
+            var logBook = await _dataContext.LogBooks.FindAsync(logBookId);
             if(logBook==null|| commentRequest == null)
             {
                 return new ToRespond()
@@ -260,12 +260,163 @@ namespace SiwesApp.Repositories
                 };
             }
 
+            var userId = Int32.Parse(_httpContextAccessor.HttpContext.User.Identity.Name);
+
+            var industrialSupervisor = await _dataContext.IndustrialSupervisors.Where(a => a.UserId == userId).SingleOrDefaultAsync();
+            var lecturer = await _dataContext.Lecturers.Where(a => a.UserId == userId).SingleOrDefaultAsync();
+
+            var comment = new Comment();
+            if (lecturer != null)
+            {
+                comment.CommentterId = lecturer.LecturerId;
+                comment.CommentDetail = commentRequest.CommentDetail;
+                comment.Lecturer = lecturer;
+                comment.LogBook = logBook;
+                comment.LogBookId = logBook.LogBookId;
+
+                _globalRepository.Add(comment);
+
+                logBook.Comment.Add(comment);
+
+                _dataContext.Entry(logBook).State = EntityState.Modified;
+
+            }
+            else if(industrialSupervisor != null)
+            {
+                comment.CommentterId = industrialSupervisor.IndustrialSupervisorId;
+                comment.CommentDetail = commentRequest.CommentDetail;
+                comment.IndustrialSupervisor = industrialSupervisor;
+                comment.LogBook = logBook;
+                comment.LogBookId = logBook.LogBookId;
+                logBook.Comment.Add(comment);
+
+                _dataContext.Entry(logBook).State = EntityState.Modified;
+
+                _globalRepository.Add(comment);
+            }
+            else
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            var result = await _globalRepository.SaveAll();
+
+            if (result != null)
+            {
+                if (!result.Value)
+                {
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.SaveError,
+                        StatusMessage = Helpers.StatusMessageSaveError
+                    };
+                }
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.Success,
+                    ObjectValue = _mapper.Map<CommentResponse>(comment),
+                    StatusMessage = "Your Comment Was Successfully!!!"
+                };
+
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = Helpers.StatusMessageSaveError
+            };
 
         }
 
-        public Task<ToRespond> LogBookGrade(int logBookId, GradeRequest gradeRequest)
+        public async Task<ToRespond> LogBookGrade(int logBookId, GradeRequest gradeRequest)
         {
-            throw new NotImplementedException();
+            var logBook = await _dataContext.LogBooks.FindAsync(logBookId);
+            if (logBook == null || gradeRequest == null)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.ObjectNull,
+                    StatusMessage = Helpers.StatusMessageObjectNull
+                };
+            }
+
+            var userId = Int32.Parse(_httpContextAccessor.HttpContext.User.Identity.Name);
+
+            var industrialSupervisor = await _dataContext.IndustrialSupervisors.Where(a => a.UserId == userId).SingleOrDefaultAsync();
+            var lecturer = await _dataContext.Lecturers.Where(a => a.UserId == userId).SingleOrDefaultAsync();
+
+            var grade = new Grade();
+            if (lecturer != null)
+            {
+                grade.GraderId = lecturer.LecturerId;
+                grade.ObtainedGrade = gradeRequest.ObtainedGrade;
+                grade.ObtainableGrade = gradeRequest.ObtainableGrade;
+                grade.Lecturer = lecturer;
+                grade.LogBook = logBook;
+                grade.LogBookId = logBook.LogBookId;
+
+                _globalRepository.Add(grade);
+
+                logBook.Grade.Add(grade);
+
+                _dataContext.Entry(logBook).State = EntityState.Modified;
+
+            }
+            else if (industrialSupervisor != null)
+            {
+                grade.GraderId = industrialSupervisor.IndustrialSupervisorId;
+                grade.ObtainedGrade = gradeRequest.ObtainedGrade;
+                grade.ObtainableGrade = gradeRequest.ObtainableGrade;
+                grade.IndustrialSupervisor = industrialSupervisor;
+                grade.LogBook = logBook;
+                grade.LogBookId = logBook.LogBookId;
+
+                _globalRepository.Add(grade);
+
+                logBook.Grade.Add(grade);
+
+                _dataContext.Entry(logBook).State = EntityState.Modified;
+
+            }
+            else
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            var result = await _globalRepository.SaveAll();
+
+            if (result != null)
+            {
+                if (!result.Value)
+                {
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.SaveError,
+                        StatusMessage = Helpers.StatusMessageSaveError
+                    };
+                }
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.Success,
+                    ObjectValue = _mapper.Map<GradeResponse>(grade),
+                    StatusMessage = "Student Log Book Graded Successfully!!!"
+                };
+
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = Helpers.StatusMessageSaveError
+            };
         }
     }
 }
