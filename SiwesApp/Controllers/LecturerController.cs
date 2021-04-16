@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SiwesApp.Controllers
 {
-    //[Authorize(Roles = "SiwesAdmin")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LecturerController : ControllerBase
@@ -89,12 +89,12 @@ namespace SiwesApp.Controllers
         /// <summary>
         /// Comment On Student Log Book
         /// </summary>
-        /// POST: api/lecturer/comment/1
+        /// POST: api/lecturer/1/comment
         [HttpPost]
-        [Route("comment/{logBookId}")]
-        public async Task<ActionResult> LogBookComment(int logBookId, [FromBody] CommentRequest commentRequest)
+        [Route("{logBookId}/comment")]
+        public async Task<ActionResult> CommentOnLogBook(int logBookId, [FromBody] CommentRequest commentRequest)
         {
-            var result = await _lecturerRepository.LogBookComment(logBookId,commentRequest);
+            var result = await _lecturerRepository.CommentOnLogBook(logBookId,commentRequest);
 
             if (result.StatusCode == Helpers.Success)
             {
@@ -109,12 +109,92 @@ namespace SiwesApp.Controllers
         /// <summary>
         /// Comment On Student Log Book
         /// </summary>
-        /// POST: api/lecturer/comment/1
+        /// POST: api/lecturer/1/grade
         [HttpPost]
-        [Route("grade/{logBookId}")]
-        public async Task<ActionResult> LogBookGrade(int logBookId, [FromBody] GradeRequest gradeRequest)
+        [Route("{logBookId}/grade")]
+        public async Task<ActionResult> GradeLogBook(int logBookId, [FromBody] GradeRequest gradeRequest)
         {
-            var result = await _lecturerRepository.LogBookGrade(logBookId, gradeRequest);
+            var result = await _lecturerRepository.GradeLogBook(logBookId, gradeRequest);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Get One Log Book Comment
+        /// </summary>
+        /// Get: api/lecturer/1/comment/1
+        [HttpGet]
+        [Route("{logBookId}/comment/{commentId}")]
+        public async Task<ActionResult> GetACommenttedLogBook(int commentId)
+        {
+            var result = await _lecturerRepository.GetACommenttedLogBook(commentId);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Get One Log Book Grade
+        /// </summary>
+        /// Get: api/lecturer/1/grade/1
+        [HttpGet]
+        [Route("{logBookId}/grade/{commentId}")]
+        public async Task<ActionResult> GetAGradedLogBook(int gradeId)
+        {
+            var result = await _lecturerRepository.GetAGradedLogBook(gradeId);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Get All Log Book Comment
+        /// </summary>
+        /// Get: api/lecturer/1/comment
+        [HttpGet]
+        [Route("{logBookId}/comment")]
+        public async Task<ActionResult> GetAllStudentCommenttedLogBook()
+        {
+            var result = await _lecturerRepository.GetAllStudentCommenttedLogBook();
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
+        /// <summary>
+        /// Get All Log Book Grade
+        /// </summary>
+        /// Get: api/lecturer/1/grade
+        [HttpGet]
+        [Route("{logBookId}/grade")]
+        public async Task<ActionResult> GetAllStudentGradedLogBook()
+        {
+            var result = await _lecturerRepository.GetAllStudentGradedLogBook();
 
             if (result.StatusCode == Helpers.Success)
             {

@@ -45,17 +45,41 @@
             </summary>
             Get: api/lecturer/1
         </member>
-        <member name="M:SiwesApp.Controllers.LecturerController.LogBookComment(System.Int32,SiwesApp.Dtos.CommentAndGrade.CommentRequest)">
+        <member name="M:SiwesApp.Controllers.LecturerController.CommentOnLogBook(System.Int32,SiwesApp.Dtos.CommentAndGrade.CommentRequest)">
             <summary>
             Comment On Student Log Book
             </summary>
-            POST: api/lecturer/comment/1
+            POST: api/lecturer/1/comment
         </member>
-        <member name="M:SiwesApp.Controllers.LecturerController.LogBookGrade(System.Int32,SiwesApp.Dtos.CommentAndGrade.GradeRequest)">
+        <member name="M:SiwesApp.Controllers.LecturerController.GradeLogBook(System.Int32,SiwesApp.Dtos.CommentAndGrade.GradeRequest)">
             <summary>
             Comment On Student Log Book
             </summary>
-            POST: api/lecturer/comment/1
+            POST: api/lecturer/1/grade
+        </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.GetACommenttedLogBook(System.Int32)">
+            <summary>
+            Get One Log Book Comment
+            </summary>
+            Get: api/lecturer/1/comment/1
+        </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.GetAGradedLogBook(System.Int32)">
+            <summary>
+            Get One Log Book Grade
+            </summary>
+            Get: api/lecturer/1/grade/1
+        </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.GetAllStudentCommenttedLogBook">
+            <summary>
+            Get All Log Book Comment
+            </summary>
+            Get: api/lecturer/1/comment
+        </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.GetAllStudentGradedLogBook">
+            <summary>
+            Get All Log Book Grade
+            </summary>
+            Get: api/lecturer/1/grade
         </member>
         <member name="M:SiwesApp.Controllers.RoleController.PostRoles(System.Collections.Generic.List{SiwesApp.Dtos.All.RoleRequest})">
             <summary>

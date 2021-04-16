@@ -194,7 +194,6 @@ namespace SiwesApp.Repositories
             };
         }
 
-
         private string GetHashedEmail(string emailVal)
         {
             return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(emailVal));
@@ -248,7 +247,7 @@ namespace SiwesApp.Repositories
             };
         }
 
-        public async Task<ToRespond> LogBookComment(int logBookId, CommentRequest commentRequest)
+        public async Task<ToRespond> CommentOnLogBook(int logBookId, CommentRequest commentRequest)
         {
             var logBook = await _dataContext.LogBooks.FindAsync(logBookId);
             if(logBook==null|| commentRequest == null)
@@ -332,7 +331,7 @@ namespace SiwesApp.Repositories
 
         }
 
-        public async Task<ToRespond> LogBookGrade(int logBookId, GradeRequest gradeRequest)
+        public async Task<ToRespond> GradeLogBook(int logBookId, GradeRequest gradeRequest)
         {
             var logBook = await _dataContext.LogBooks.FindAsync(logBookId);
             if (logBook == null || gradeRequest == null)
@@ -416,6 +415,99 @@ namespace SiwesApp.Repositories
             {
                 StatusCode = Helpers.SaveError,
                 StatusMessage = Helpers.StatusMessageSaveError
+            };
+        }
+
+        public async Task<ToRespond> GetACommenttedLogBook(int commentId)
+        {
+            var comment =  await _dataContext.Comments.Where(x=>x.CommentId ==commentId)
+                                                .Include(x=>x.LogBook)
+                                                .Include(x=>x.Lecturer)
+                                                .Include(x=>x.IndustrialSupervisor)
+                                                .FirstOrDefaultAsync();
+            if(comment == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                ObjectValue = _mapper.Map<CommentResponse>(comment)
+            };
+
+        }
+
+        public async Task<ToRespond> GetAGradedLogBook(int gradeId)
+        {
+            var grade = await _dataContext.Grades.Where(x => x.GradeId == gradeId)
+                                                .Include(x => x.LogBook)
+                                                .Include(x => x.Lecturer)
+                                                .Include(x => x.IndustrialSupervisor)
+                                                .FirstOrDefaultAsync();
+            if (grade == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                ObjectValue = _mapper.Map<GradeResponse>(grade),
+            };
+        }
+
+        public async Task<ToRespond> GetAllStudentCommenttedLogBook()
+        {
+            var comment = await _dataContext.Comments
+                                               .Include(x => x.LogBook)
+                                               .Include(x => x.Lecturer)
+                                               .Include(x => x.IndustrialSupervisor)
+                                               .ToListAsync();
+            if (!comment.Any())
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                ObjectValue = _mapper.Map<List<CommentResponse>>(comment)
+            };
+        }
+
+        public async Task<ToRespond> GetAllStudentGradedLogBook()
+        {
+            var grade = await _dataContext.Grades
+                                               .Include(x => x.LogBook)
+                                               .Include(x => x.Lecturer)
+                                               .Include(x => x.IndustrialSupervisor)
+                                               .ToListAsync();
+            if (!grade.Any())
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.Success,
+                ObjectValue = _mapper.Map<List<GradeResponse>>(grade),
             };
         }
     }
