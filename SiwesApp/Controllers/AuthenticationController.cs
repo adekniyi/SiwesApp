@@ -13,6 +13,7 @@ using SiwesApp.Models;
 using SiwesApp.Utils;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using SiwesApp.Dtos.Authentication;
 
 namespace SiwesApp.Controllers
 {
@@ -77,6 +78,26 @@ namespace SiwesApp.Controllers
             {
                 return StatusCode(StatusCodes.Status400BadRequest, result);
             }
+        }
+
+        /// <summary>
+        /// SEND PASSWORD RESET LINK TO THE USER'S EMAIL
+        /// </summary>
+        [HttpPost]
+        [Route("ChangePassword")]
+        public async Task<ActionResult> ChangePassword([FromForm] ChangePasswordRequest changePasswordRequest)
+        {
+            var result = await _authenticationRepo.ChangePassword(changePasswordRequest);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+
         }
     }
 }
