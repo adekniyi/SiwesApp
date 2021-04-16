@@ -1,4 +1,5 @@
 ﻿using SiwesApp.Dtos.All;
+using SiwesApp.Dtos.Authentication;
 using SiwesApp.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace SiwesApp.Interfaces
         //public Task<ToRespond> ResendUserEmailVerificationLink(EmailVerificationRequest emailVerificationRequest);
         public string GetUserEmailVerificationLink(string userToken);
         public Task<ToRespond> LoginUser(UserForLogin userLoginDetails, string secretKey);
+        public Task<ToRespond> ChangePassword(ChangePasswordRequest changePasswordRequest);
 
     }
 }

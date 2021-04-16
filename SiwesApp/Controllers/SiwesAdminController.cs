@@ -1,33 +1,26 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SiwesApp.Dtos.All;
 using SiwesApp.Dtos.SiwesAdmin;
 using SiwesApp.Interfaces;
 using SiwesApp.Models;
 using SiwesApp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SiwesApp.Controllers
 {
-    //[Authorize]
-    //[Authorize(Roles = "SiwesAdmin")]
+    [Authorize(Roles = "SiwesAdmin")]
     [Route("api/[controller]")]
     [ApiController]
     public class SiwesAdminController : ControllerBase
     {
-        //private readonly UserManager<User> _userManager;
         private readonly ISiwesAdminRepo _siwesAdminRepository;
         private readonly IMapper _mapper;
 
-        public SiwesAdminController(UserManager<User> userManager, ISiwesAdminRepo siwesAdminRepository, IMapper mapper)
+        public SiwesAdminController(ISiwesAdminRepo siwesAdminRepository, IMapper mapper)
         {
-            //_userManager = userManager;
             _siwesAdminRepository = siwesAdminRepository;
             _mapper = mapper;
         }

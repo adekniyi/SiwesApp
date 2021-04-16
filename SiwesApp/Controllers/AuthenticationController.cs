@@ -11,13 +11,12 @@ using SiwesApp.Dtos.StudentDto;
 using SiwesApp.Interfaces;
 using SiwesApp.Models;
 using SiwesApp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SiwesApp.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthenticationController : ControllerBase

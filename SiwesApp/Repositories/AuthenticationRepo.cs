@@ -18,6 +18,7 @@ using AutoMapper;
 using SiwesApp.Dtos.All;
 using Microsoft.EntityFrameworkCore;
 using SiwesApp.Dtos.StudentDto;
+using SiwesApp.Dtos.Authentication;
 
 namespace SiwesApp.Repositories
 {
@@ -233,6 +234,78 @@ namespace SiwesApp.Repositories
             {
                 StatusCode = Helpers.SignInError
             };
+        }
+
+        public async Task<ToRespond> ChangePassword(ChangePasswordRequest changePasswordRequest)
+        {
+            if (changePasswordRequest == null || string.IsNullOrWhiteSpace(changePasswordRequest.OldPassword) || string.IsNullOrWhiteSpace(changePasswordRequest.NewPassword))
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.ObjectNull,
+                    StatusMessage = Helpers.StatusMessageObjectNull
+                };
+            }
+
+            if (changePasswordRequest.OldPassword == changePasswordRequest.NewPassword)
+            {
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.PreviousPasswordStorageError,
+                    StatusMessage = "Previous Password Is Same As New Password"
+                };
+            }
+
+
+            var loggedInUser = _globalRepository.GetUserInformation();
+            var user = await _userManager.FindByIdAsync(loggedInUser.UserId);
+            var dbTransaction = await _dataContext.Database.BeginTransactionAsync();
+
+            if (user != null)
+            {
+                var newPasswordHash = _userManager.PasswordHasher.HashPassword(user, changePasswordRequest.NewPassword);
+
+                if (user.PasswordHash.Equals(newPasswordHash))
+                {
+                    await dbTransaction.RollbackAsync();
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.NewPasswordError,
+                        StatusMessage ="New Password error"
+                    };
+                }
+
+                var result = await _userManager.ChangePasswordAsync(user, changePasswordRequest.OldPassword, changePasswordRequest.NewPassword);
+
+                if (result.Succeeded)
+                {
+                     await dbTransaction.CommitAsync();
+                     return new ToRespond()
+                     {
+                         StatusCode = Helpers.Success,
+                         StatusMessage = "Password Changed Successfully",
+                         ObjectValue = user
+                     };
+                }
+                else
+                {
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.SaveError,
+                        StatusMessage = Helpers.StatusMessageSaveError
+                    };
+                }
+            }
+            else
+            {
+                await dbTransaction.RollbackAsync();
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+
         }
 
     }

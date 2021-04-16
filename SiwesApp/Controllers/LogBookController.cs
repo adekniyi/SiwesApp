@@ -1,27 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SiwesApp.Dtos.CommentAndGrade;
 using SiwesApp.Dtos.StudentDto;
 using SiwesApp.Interfaces;
-using SiwesApp.Models;
 using SiwesApp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SiwesApp.Controllers
 {
+    [Authorize(Roles = "Lecturer,IndustrialSupervisor.SiwesAdmin,SiwesCoordinator")]
     [Route("api/[controller]")]
     [ApiController]
     public class LogBookController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
         private readonly ILogBookRepository _logBookRepository;
-        public LogBookController(UserManager<User> userManager, ILogBookRepository logBookRepository)
+        public LogBookController(ILogBookRepository logBookRepository)
         {
-            _userManager = userManager;
             _logBookRepository = logBookRepository;
         }
 
@@ -30,6 +25,7 @@ namespace SiwesApp.Controllers
         /// </summary>
         /// POST: api/logbook
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> FillLogBook([FromBody] LogBookRequest logBookRequest)
         {
             var result = await _logBookRepository.FillLogBook(logBookRequest);

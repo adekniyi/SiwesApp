@@ -7,14 +7,12 @@ using SiwesApp.Dtos.All;
 using SiwesApp.Interfaces;
 using SiwesApp.Models;
 using SiwesApp.Utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SiwesApp.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "SiwesAdmin,SiwesCoordinator")]
     [Route("api/[controller]")]
     [ApiController]
     public class RoleController : ControllerBase

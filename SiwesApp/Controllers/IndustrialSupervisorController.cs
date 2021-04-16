@@ -1,14 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SiwesApp.Dtos.IndustrialSupervisorDto;
 using SiwesApp.Interfaces;
-using SiwesApp.Models;
 using SiwesApp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SiwesApp.Controllers
@@ -18,12 +13,10 @@ namespace SiwesApp.Controllers
     [ApiController]
     public class IndustrialSupervisorController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
         private readonly IIndustrialSupervisorRepo _industrialSupervisorRepository;
 
-        public IndustrialSupervisorController(UserManager<User> userManager, IIndustrialSupervisorRepo industrialSupervisorRepository)
+        public IndustrialSupervisorController(IIndustrialSupervisorRepo industrialSupervisorRepository)
         {
-            _userManager = userManager;
             _industrialSupervisorRepository = industrialSupervisorRepository;
         }
 
@@ -32,6 +25,7 @@ namespace SiwesApp.Controllers
         /// </summary>
         /// POST: api/industrialSupervisor
         [HttpPost]
+        [Authorize(Roles = "SiwesAdmin")]
         public async Task<ActionResult> CreateIndustrialSupervisor([FromForm] IndustrialSupervisorRequest industrialSupervisorRequest)
         {
             var result = await _industrialSupervisorRepository.CreateIndustrialSupervisor(industrialSupervisorRequest);

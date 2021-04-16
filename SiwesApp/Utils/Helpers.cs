@@ -52,7 +52,9 @@ namespace SiwesApp.Utils
         public const int Unauthorized = 14; 
         public const int LockedOut = 15; 
         public const int InvalidFileSize = 16; 
-        public const int CloudinaryFileDeleteError = 17;
+        public const int CloudinaryFileDeleteError = 17; 
+        public const int PreviousPasswordStorageError = 18;
+        public const int NewPasswordError = 19;
 
         // User Roles
         public const string SiwesAdminRole = "SiwesAdmin";

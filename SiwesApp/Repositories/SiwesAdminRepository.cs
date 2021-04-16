@@ -1,13 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SiwesApp.Data;
-using SiwesApp.Dtos;
 using SiwesApp.Dtos.All;
-//using SiwesApp.Dtos.Authentication;
 using SiwesApp.Dtos.SiwesAdmin;
 using SiwesApp.Interfaces;
 using SiwesApp.Models;
@@ -21,32 +14,18 @@ namespace SiwesApp.Repositories
 {
     public class SiwesAdminRepository : ISiwesAdminRepo
     {
-        private readonly ApplicationDataContext _dataContext;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IGlobalRepository _globalRepository;
-        private readonly IConfiguration _configuration;
         private readonly IRoleRepository _roleRepository;
-        private readonly IMapper _mapper;
         private readonly IAuthenticationRepo _authenticationRepository;
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly RoleManager<Role> _roleManager;
 
 
-        public SiwesAdminRepository(ApplicationDataContext dataContext, UserManager<User> userManager,
-            SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor, IConfiguration configuration,
-            IWebHostEnvironment webHostEnvironment, IGlobalRepository globalRepository, IAuthenticationRepo authenticationRepository,
-            IMapper mapper, RoleManager<Role> roleManager,IRoleRepository roleRepository)
+        public SiwesAdminRepository(UserManager<User> userManager,IGlobalRepository globalRepository,
+            IAuthenticationRepo authenticationRepository, RoleManager<Role> roleManager,IRoleRepository roleRepository)
         {
-            _dataContext = dataContext;
             _userManager = userManager;
-            _signInManager = signInManager;
-            _httpContextAccessor = httpContextAccessor;
-            _configuration = configuration;
-            _webHostEnvironment = webHostEnvironment;
             _globalRepository = globalRepository;
-            _mapper = mapper;
             _authenticationRepository = authenticationRepository;
             _roleManager = roleManager;
             _roleRepository = roleRepository;

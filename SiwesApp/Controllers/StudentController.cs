@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SiwesApp.Dtos.StudentDto;
 using SiwesApp.Interfaces;
-using SiwesApp.Models;
 using SiwesApp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SiwesApp.Controllers
@@ -20,17 +14,11 @@ namespace SiwesApp.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
         private readonly IStudentRepo _studentRepository;
-        //private readonly IMapper _mapper;
-        //private readonly IConfiguration _configuration;
-
-        public StudentController(UserManager<User> userManager, IStudentRepo studentRepository, IMapper mapper, IConfiguration configuration)
+      
+        public StudentController(IStudentRepo studentRepository)
         {
-            _userManager = userManager;
             _studentRepository = studentRepository;
-            //_mapper = mapper;
-            //_configuration = configuration;
         }
 
 
@@ -39,6 +27,7 @@ namespace SiwesApp.Controllers
         /// </summary>
         /// POST: api/student
         [HttpPost]
+        [Authorize(Roles = "SiwesAdmin, SiwesCoordinator, Lecturer")]
         public async Task<ActionResult> CreateStudent([FromForm] StudentRequest studentRequest)
         {
             var result = await _studentRepository.CreateStudent(studentRequest);
@@ -172,25 +161,5 @@ namespace SiwesApp.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, result);
             }
         }
-
-        ///// <summary>
-        ///// Fill A Student Log Book
-        ///// </summary>
-        ///// POST: api/student/logbook
-        //[HttpPost]
-        //[Route("logbook")]
-        //public async Task<ActionResult> FillLogBook([FromBody] LogBookRequest logBookRequest)
-        //{
-        //    var result = await _studentRepository.FillLogBook(logBookRequest);
-
-        //    if (result.StatusCode == Helpers.Success)
-        //    {
-        //        return StatusCode(StatusCodes.Status200OK, result);
-        //    }
-        //    else
-        //    {
-        //        return StatusCode(StatusCodes.Status400BadRequest, result);
-        //    }
-        //}
     }
 }

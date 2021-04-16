@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using SiwesApp.Data;
 using SiwesApp.Dtos.All;
@@ -12,8 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 using AutoMapper;
 using CloudinaryDotNet.Actions;
 
@@ -24,27 +21,20 @@ namespace SiwesApp.Repositories
 
         private readonly ApplicationDataContext _dataContext;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IGlobalRepository _globalRepository;
-        private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
         private readonly IAuthenticationRepo _authenticationRepository;
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ICloudinaryRepository _cloudinaryRepository;
 
 
-        public StudentRepository(ApplicationDataContext dataContext, UserManager<User> userManager, 
-            SignInManager<User> signInManager, IHttpContextAccessor httpContextAccessor, IConfiguration configuration,
-            IWebHostEnvironment webHostEnvironment, IGlobalRepository globalRepository, IAuthenticationRepo authenticationRepository,
+        public StudentRepository(ApplicationDataContext dataContext, UserManager<User> userManager,IHttpContextAccessor httpContextAccessor,
+            IGlobalRepository globalRepository, IAuthenticationRepo authenticationRepository,
             IMapper mapper, ICloudinaryRepository cloudinaryRepository)
         {
             _dataContext = dataContext;
             _userManager = userManager;
-            _signInManager = signInManager;
             _httpContextAccessor = httpContextAccessor;
-            _configuration = configuration;
-            _webHostEnvironment = webHostEnvironment;
             _globalRepository = globalRepository;
             _mapper = mapper;
             _authenticationRepository = authenticationRepository;

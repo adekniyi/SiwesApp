@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SiwesApp.Data;
+using SiwesApp.Dtos.All;
 using SiwesApp.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SiwesApp.Repositories
@@ -130,6 +132,28 @@ namespace SiwesApp.Repositories
         {
             var entity = await _dataContext.Set<TEntity>().ToListAsync();
             return entity;
+        }
+
+        public LogUserInfo GetUserInformation()
+        {
+            var userId = _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
+            var userTypeId = Convert.ToInt32(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            var userRoles = _httpContextAccessor.HttpContext.User.Claims.Where(n => n.Type == ClaimTypes.Role).ToList();
+            if (userRoles == null)
+            {
+                return new LogUserInfo()
+                {
+                    UserId = userId,
+                    UserTypeId = userTypeId
+                };
+            }
+
+            return new LogUserInfo()
+            {
+                UserId = userId,
+                UserTypeId = userTypeId,
+                Roles = userRoles
+            };
         }
     }
 }
