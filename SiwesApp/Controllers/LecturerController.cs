@@ -86,124 +86,124 @@ namespace SiwesApp.Controllers
             }
         }
 
-        /// <summary>
-        /// Comment On Student Log Book
-        /// </summary>
-        /// POST: api/lecturer/1/comment
-        [HttpPost]
-        [Route("{logBookId}/comment")]
-        public async Task<ActionResult> CommentOnLogBook(int logBookId, [FromBody] CommentRequest commentRequest)
-        {
-            var result = await _lecturerRepository.CommentOnLogBook(logBookId,commentRequest);
+        ///// <summary>
+        ///// Comment On Student Log Book
+        ///// </summary>
+        ///// POST: api/lecturer/1/comment
+        //[HttpPost]
+        //[Route("{logBookId}/comment")]
+        //public async Task<ActionResult> CommentOnLogBook(int logBookId, [FromBody] CommentRequest commentRequest)
+        //{
+        //    var result = await _lecturerRepository.CommentOnLogBook(logBookId,commentRequest);
 
-            if (result.StatusCode == Helpers.Success)
-            {
-                return StatusCode(StatusCodes.Status200OK, result);
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, result);
-            }
-        }
+        //    if (result.StatusCode == Helpers.Success)
+        //    {
+        //        return StatusCode(StatusCodes.Status200OK, result);
+        //    }
+        //    else
+        //    {
+        //        return StatusCode(StatusCodes.Status400BadRequest, result);
+        //    }
+        //}
 
-        /// <summary>
-        /// Comment On Student Log Book
-        /// </summary>
-        /// POST: api/lecturer/1/grade
-        [HttpPost]
-        [Route("{logBookId}/grade")]
-        public async Task<ActionResult> GradeLogBook(int logBookId, [FromBody] GradeRequest gradeRequest)
-        {
-            var result = await _lecturerRepository.GradeLogBook(logBookId, gradeRequest);
+        ///// <summary>
+        ///// Comment On Student Log Book
+        ///// </summary>
+        ///// POST: api/lecturer/1/grade
+        //[HttpPost]
+        //[Route("{logBookId}/grade")]
+        //public async Task<ActionResult> GradeLogBook(int logBookId, [FromBody] GradeRequest gradeRequest)
+        //{
+        //    var result = await _lecturerRepository.GradeLogBook(logBookId, gradeRequest);
 
-            if (result.StatusCode == Helpers.Success)
-            {
-                return StatusCode(StatusCodes.Status200OK, result);
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, result);
-            }
-        }
+        //    if (result.StatusCode == Helpers.Success)
+        //    {
+        //        return StatusCode(StatusCodes.Status200OK, result);
+        //    }
+        //    else
+        //    {
+        //        return StatusCode(StatusCodes.Status400BadRequest, result);
+        //    }
+        //}
 
-        /// <summary>
-        /// Get One Log Book Comment
-        /// </summary>
-        /// Get: api/lecturer/1/comment/1
-        [HttpGet]
-        [Route("{logBookId}/comment/{commentId}")]
-        public async Task<ActionResult> GetACommenttedLogBook(int commentId)
-        {
-            var result = await _lecturerRepository.GetACommenttedLogBook(commentId);
+        ///// <summary>
+        ///// Get One Log Book Comment
+        ///// </summary>
+        ///// Get: api/lecturer/1/comment/1
+        //[HttpGet]
+        //[Route("{logBookId}/comment/{commentId}")]
+        //public async Task<ActionResult> GetACommenttedLogBook(int commentId)
+        //{
+        //    var result = await _lecturerRepository.GetACommenttedLogBook(commentId);
 
-            if (result.StatusCode == Helpers.Success)
-            {
-                return StatusCode(StatusCodes.Status200OK, result);
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, result);
-            }
-        }
+        //    if (result.StatusCode == Helpers.Success)
+        //    {
+        //        return StatusCode(StatusCodes.Status200OK, result);
+        //    }
+        //    else
+        //    {
+        //        return StatusCode(StatusCodes.Status400BadRequest, result);
+        //    }
+        //}
 
-        /// <summary>
-        /// Get One Log Book Grade
-        /// </summary>
-        /// Get: api/lecturer/1/grade/1
-        [HttpGet]
-        [Route("{logBookId}/grade/{commentId}")]
-        public async Task<ActionResult> GetAGradedLogBook(int gradeId)
-        {
-            var result = await _lecturerRepository.GetAGradedLogBook(gradeId);
+        ///// <summary>
+        ///// Get One Log Book Grade
+        ///// </summary>
+        ///// Get: api/lecturer/1/grade/1
+        //[HttpGet]
+        //[Route("{logBookId}/grade/{commentId}")]
+        //public async Task<ActionResult> GetAGradedLogBook(int gradeId)
+        //{
+        //    var result = await _lecturerRepository.GetAGradedLogBook(gradeId);
 
-            if (result.StatusCode == Helpers.Success)
-            {
-                return StatusCode(StatusCodes.Status200OK, result);
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, result);
-            }
-        }
+        //    if (result.StatusCode == Helpers.Success)
+        //    {
+        //        return StatusCode(StatusCodes.Status200OK, result);
+        //    }
+        //    else
+        //    {
+        //        return StatusCode(StatusCodes.Status400BadRequest, result);
+        //    }
+        //}
 
-        /// <summary>
-        /// Get All Log Book Comment
-        /// </summary>
-        /// Get: api/lecturer/1/comment
-        [HttpGet]
-        [Route("{logBookId}/comment")]
-        public async Task<ActionResult> GetAllStudentCommenttedLogBook()
-        {
-            var result = await _lecturerRepository.GetAllStudentCommenttedLogBook();
+        ///// <summary>
+        ///// Get All Log Book Comment
+        ///// </summary>
+        ///// Get: api/lecturer/1/comment
+        //[HttpGet]
+        //[Route("{logBookId}/comment")]
+        //public async Task<ActionResult> GetAllStudentCommenttedLogBook()
+        //{
+        //    var result = await _lecturerRepository.GetAllStudentCommenttedLogBook();
 
-            if (result.StatusCode == Helpers.Success)
-            {
-                return StatusCode(StatusCodes.Status200OK, result);
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, result);
-            }
-        }
+        //    if (result.StatusCode == Helpers.Success)
+        //    {
+        //        return StatusCode(StatusCodes.Status200OK, result);
+        //    }
+        //    else
+        //    {
+        //        return StatusCode(StatusCodes.Status400BadRequest, result);
+        //    }
+        //}
 
-        /// <summary>
-        /// Get All Log Book Grade
-        /// </summary>
-        /// Get: api/lecturer/1/grade
-        [HttpGet]
-        [Route("{logBookId}/grade")]
-        public async Task<ActionResult> GetAllStudentGradedLogBook()
-        {
-            var result = await _lecturerRepository.GetAllStudentGradedLogBook();
+        ///// <summary>
+        ///// Get All Log Book Grade
+        ///// </summary>
+        ///// Get: api/lecturer/1/grade
+        //[HttpGet]
+        //[Route("{logBookId}/grade")]
+        //public async Task<ActionResult> GetAllStudentGradedLogBook()
+        //{
+        //    var result = await _lecturerRepository.GetAllStudentGradedLogBook();
 
-            if (result.StatusCode == Helpers.Success)
-            {
-                return StatusCode(StatusCodes.Status200OK, result);
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, result);
-            }
-        }
+        //    if (result.StatusCode == Helpers.Success)
+        //    {
+        //        return StatusCode(StatusCodes.Status200OK, result);
+        //    }
+        //    else
+        //    {
+        //        return StatusCode(StatusCodes.Status400BadRequest, result);
+        //    }
+        //}
     }
 }

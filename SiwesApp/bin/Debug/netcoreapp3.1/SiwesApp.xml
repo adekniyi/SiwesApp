@@ -45,41 +45,47 @@
             </summary>
             Get: api/lecturer/1
         </member>
-        <member name="M:SiwesApp.Controllers.LecturerController.CommentOnLogBook(System.Int32,SiwesApp.Dtos.CommentAndGrade.CommentRequest)">
+        <member name="M:SiwesApp.Controllers.LogBookController.FillLogBook(SiwesApp.Dtos.StudentDto.LogBookRequest)">
+            <summary>
+            Fill A Student Log Book
+            </summary>
+            POST: api/logbook
+        </member>
+        <member name="M:SiwesApp.Controllers.LogBookController.CommentOnLogBook(System.Int32,SiwesApp.Dtos.CommentAndGrade.CommentRequest)">
             <summary>
             Comment On Student Log Book
             </summary>
-            POST: api/lecturer/1/comment
+            POST: api/logbook/1/comment
         </member>
-        <member name="M:SiwesApp.Controllers.LecturerController.GradeLogBook(System.Int32,SiwesApp.Dtos.CommentAndGrade.GradeRequest)">
+        <member name="M:SiwesApp.Controllers.LogBookController.GradeLogBook(System.Int32,SiwesApp.Dtos.CommentAndGrade.GradeRequest)">
             <summary>
             Comment On Student Log Book
             </summary>
-            POST: api/lecturer/1/grade
+            POST: api/logbook/1/grade
         </member>
-        <member name="M:SiwesApp.Controllers.LecturerController.GetACommenttedLogBook(System.Int32)">
+        <member name="M:SiwesApp.Controllers.LogBookController.GetACommenttedLogBook(System.Int32)">
             <summary>
             Get One Log Book Comment
             </summary>
-            Get: api/lecturer/1/comment/1
+            Get: api/logbook/1/comment/1
         </member>
-        <member name="M:SiwesApp.Controllers.LecturerController.GetAGradedLogBook(System.Int32)">
+        <member name="M:SiwesApp.Controllers.LogBookController.GetAGradedLogBook(System.Int32)">
             <summary>
             Get One Log Book Grade
             </summary>
-            Get: api/lecturer/1/grade/1
+            Get: api/logbook/1/grade/1
         </member>
-        <member name="M:SiwesApp.Controllers.LecturerController.GetAllStudentCommenttedLogBook">
+        <member name="M:SiwesApp.Controllers.LogBookController.GetAllStudentCommenttedLogBook">
             <summary>
             Get All Log Book Comment
             </summary>
-            Get: api/lecturer/1/comment
+            Get: api/logbook/1/comment
         </member>
-        <member name="M:SiwesApp.Controllers.LecturerController.GetAllStudentGradedLogBook">
+        <member name="M:SiwesApp.Controllers.LogBookController.GetAllStudentGradedLogBook">
             <summary>
             Get All Log Book Grade
             </summary>
-            Get: api/lecturer/1/grade
+            Get: api/logbook/1/grade
         </member>
         <member name="M:SiwesApp.Controllers.RoleController.PostRoles(System.Collections.Generic.List{SiwesApp.Dtos.All.RoleRequest})">
             <summary>
@@ -200,12 +206,6 @@
             Get All Rejected STUDENTs Placement FOR AN Siwes Application
             </summary>
             Get: api/student/placement/rejected
-        </member>
-        <member name="M:SiwesApp.Controllers.StudentController.FillLogBook(SiwesApp.Dtos.StudentDto.LogBookRequest)">
-            <summary>
-            Fill A Student Log Book
-            </summary>
-            POST: api/student/logbook
         </member>
     </members>
 </doc>

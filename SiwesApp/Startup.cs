@@ -101,6 +101,7 @@ namespace SiwesApp
             services.AddScoped<ISiwesCoordinatorRepo, SiwesCoRepository>();
             services.AddScoped<IIndustrialSupervisorRepo, IndustrialSupervisorRepo>();
             services.AddScoped<ICloudinaryRepository, CloudinaryRepository>();
+            services.AddScoped<ILogBookRepository, LogBookRepository>();
 
             services.AddHttpContextAccessor();
 

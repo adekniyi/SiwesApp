@@ -16,7 +16,6 @@ namespace SiwesApp.Interfaces
         public Task<ToRespond> GetAllPendingStudentsPlacement();
         public Task<ToRespond> GetAllEliigibleStudentsPlacement();
         public Task<ToRespond> GetAllRejectedStudentsPlacement();
-        public Task<ToRespond> FillLogBook(LogBookRequest logBookRequest);
 
     }
 }
