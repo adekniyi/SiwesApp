@@ -9,6 +9,11 @@
             LOGIN THE USER TO THE SYSTEM
             </summary>
         </member>
+        <member name="M:SiwesApp.Controllers.AuthenticationController.ChangePassword(SiwesApp.Dtos.Authentication.ChangePasswordRequest)">
+            <summary>
+            SEND PASSWORD RESET LINK TO THE USER'S EMAIL
+            </summary>
+        </member>
         <member name="M:SiwesApp.Controllers.IndustrialSupervisorController.CreateIndustrialSupervisor(SiwesApp.Dtos.IndustrialSupervisorDto.IndustrialSupervisorRequest)">
             <summary>
             CREATE Industrial Supervisor FOR A Siwes Application
