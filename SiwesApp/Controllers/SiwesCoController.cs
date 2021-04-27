@@ -177,5 +177,26 @@ namespace SiwesApp.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, result);
             }
         }
+
+        /// <summary>
+        /// Update SiwesCo FOR AN Siwes Application
+        /// </summary>
+        /// Post: api/siwesco/update/1
+        [HttpPost]
+        [Route("update/{siwesCoId}")]
+        public async Task<ActionResult> UpdateSiwesCo(int siwesCoId, SiwesCoordinatorRequest siwesCoordinatorRequest)
+        {
+            var result = await _siwesCoRepository.UpdateSiwesCo(siwesCoId, siwesCoordinatorRequest);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
     }
 }

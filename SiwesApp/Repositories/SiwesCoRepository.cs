@@ -466,5 +466,69 @@ namespace SiwesApp.Repositories
             };
         }
 
+        public async Task<ToRespond> UpdateSiwesCo(int siwesCoId, SiwesCoordinatorRequest siwesCoordinatorRequest)
+        {
+            var siwesCo = await _dataContext.SiwesCoordinators.FindAsync(siwesCoId);
+
+            if (siwesCo == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+            if (siwesCoordinatorRequest == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.ObjectNull,
+                    StatusMessage = Helpers.StatusMessageObjectNull
+                };
+            }
+
+            siwesCo.EmailAddress = siwesCoordinatorRequest.EmailAddress;
+            siwesCo.FirstName = siwesCoordinatorRequest.FirstName;
+            siwesCo.LastName = siwesCoordinatorRequest.LastName;
+            siwesCo.PhoneNumber = siwesCoordinatorRequest.PhoneNumber;
+            siwesCo.Department = siwesCoordinatorRequest.Department;
+
+            if (siwesCoordinatorRequest.PictureUrl != null)
+            {
+                var resultImage = _cloudinaryRepository.UploadFileToCloudinary(siwesCoordinatorRequest.PictureUrl);
+                var image = (RawUploadResult)resultImage.ObjectValue;
+                siwesCo.PictureUrl = image.Uri.ToString();
+            }
+
+            //var dbTransaction = await _dataContext.Database.BeginTransactionAsync();
+            _globalRepository.Update(siwesCo);
+            var result = await _globalRepository.SaveAll();
+
+            if (result != null)
+            {
+                if (!result.Value)
+                {
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.SaveError,
+                        StatusMessage = Helpers.StatusMessageSaveError
+                    };
+                }
+                //await dbTransaction.CommitAsync();
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.Success,
+                    ObjectValue = _mapper.Map<SiwesCoordinatorResponse>(siwesCo),
+                    StatusMessage = "SiwesCo Updated Successfully!!!"
+                };
+
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = "Can not update SiwesCo"
+            };
+        }
     }
 }

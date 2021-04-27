@@ -176,6 +176,12 @@
             </summary>
             Get: api/siwescoordinator/studentlogbook/1/1
         </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.UpdateSiwesCo(System.Int32,SiwesApp.Dtos.SiwesCoOrdinatotDto.SiwesCoordinatorRequest)">
+            <summary>
+            Update SiwesCo FOR AN Siwes Application
+            </summary>
+            Post: api/siwesco/update/1
+        </member>
         <member name="M:SiwesApp.Controllers.StudentController.CreateStudent(SiwesApp.Dtos.StudentDto.StudentRequest)">
             <summary>
             CREATE A STUDENT FOR AN Siwes Application

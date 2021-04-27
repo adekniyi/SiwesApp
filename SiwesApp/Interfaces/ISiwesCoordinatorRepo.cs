@@ -17,6 +17,7 @@ namespace SiwesApp.Interfaces
         public Task<ToRespond> AssignStudentToLecturer(AssignStudentToLecturerRequest assignStudentToLecturer);
         public Task<ToRespond> GetStudentLogBooks(int studentId);
         public Task<ToRespond> GetStudentLogBook(int studentId, int logBookId);
+        public Task<ToRespond> UpdateSiwesCo(int siwesCoId,SiwesCoordinatorRequest siwesCoordinatorRequest);
 
     }
 }
