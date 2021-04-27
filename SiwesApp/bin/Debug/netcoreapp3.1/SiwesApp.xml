@@ -212,5 +212,11 @@
             </summary>
             Get: api/student/placement/rejected
         </member>
+        <member name="M:SiwesApp.Controllers.StudentController.EditStudentsPlacement(System.Int32,SiwesApp.Dtos.StudentDto.PlacementRequestDto)">
+            <summary>
+            Update STUDENTs Placement FOR AN Siwes Application
+            </summary>
+            Post: api/student/placement/update/1
+        </member>
     </members>
 </doc>

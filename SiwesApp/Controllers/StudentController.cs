@@ -161,5 +161,25 @@ namespace SiwesApp.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, result);
             }
         }
+
+        /// <summary>
+        /// Update STUDENTs Placement FOR AN Siwes Application
+        /// </summary>
+        /// Post: api/student/placement/update/1
+        [HttpPost]
+        [Route("placement/update/{placementId}")]
+        public async Task<ActionResult> EditStudentsPlacement(int placementId,[FromBody] PlacementRequestDto placementRequest)
+        {
+            var result = await _studentRepository.EditStudentsPlacement(placementId,placementRequest);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
     }
 }

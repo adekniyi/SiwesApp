@@ -393,5 +393,86 @@ namespace SiwesApp.Repositories
                 ObjectValue = _mapper.Map<List<StudentResponse>>(students),
             };
         }
+
+        public async Task<ToRespond> EditStudentsPlacement(int placementId, PlacementRequestDto placementRequest)
+        {
+            var placement =  await _dataContext.Placements.FindAsync(placementId);
+            var student = await _dataContext.Students.Where(x => x.PlacementId == placementId)
+                                                          .FirstOrDefaultAsync();
+            if (placement == null || student == null )
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+            if(placementRequest == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.ObjectNull,
+                    StatusMessage = Helpers.StatusMessageObjectNull
+                };
+            }
+
+            if(student.EligiblityStatus != Helpers.Eligible)
+            {
+                placement.MatricNumber = placementRequest.MatricNumber;
+                placement.FullName = placementRequest.FirstName + placementRequest.LastName;
+                placement.RegistrationNumber = placementRequest.RegistrationNumber;
+                placement.Department = placementRequest.Department;
+                placement.Programm = placementRequest.Programm;
+                placement.Level = placementRequest.Level;
+                placement.CompanyName = placementRequest.CompanyName;
+                placement.CompanyAddress = placementRequest.CompanyAddress;
+                placement.SectionOfWork = placementRequest.SectionOfWork;
+                placement.EmailAddressOfCompany = placementRequest.EmailAddressOfCompany;
+
+                if (placementRequest.OfferLetter != null || student.PictureUrl != null)
+                {
+                    var resultImage = _cloudinaryRepository.UploadFileToCloudinary(placementRequest.OfferLetter);
+                    var image = (RawUploadResult)resultImage.ObjectValue;
+                    placement.OfferLetter = image.Uri.ToString();
+                    placement.StudentPicture = student.PictureUrl;
+                }
+
+                var dbTransaction = await _dataContext.Database.BeginTransactionAsync();
+
+                _globalRepository.Update(placement);
+                //student.Placement = placement;
+                var result = await _globalRepository.SaveAll();
+                //_dataContext.Entry(student).State = EntityState.Modified;
+
+                if (result != null)
+                {
+                    if (!result.Value)
+                    {
+                        return new ToRespond()
+                        {
+                            StatusCode = Helpers.SaveError,
+                            StatusMessage = Helpers.StatusMessageSaveError
+                        };
+                    }
+                    await dbTransaction.CommitAsync();
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.Success,
+                        ObjectValue = _mapper.Map<PlacementResponse>(placement),
+                        StatusMessage = "Placement Updated Successfully!!!"
+                    };
+
+                }
+
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = "Your Placement Have been accepted already, so you can't edit again"
+            };
+
+
+        }
     }
 }
