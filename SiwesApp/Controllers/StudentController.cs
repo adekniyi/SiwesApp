@@ -168,9 +168,9 @@ namespace SiwesApp.Controllers
         /// Post: api/student/placement/update/1
         [HttpPost]
         [Route("placement/update/{placementId}")]
-        public async Task<ActionResult> EditStudentsPlacement(int placementId,[FromBody] PlacementRequestDto placementRequest)
+        public async Task<ActionResult> UpdateStudentPlacement(int placementId,[FromBody] PlacementRequestDto placementRequest)
         {
-            var result = await _studentRepository.EditStudentsPlacement(placementId,placementRequest);
+            var result = await _studentRepository.UpdateStudentPlacement(placementId,placementRequest);
 
             if (result.StatusCode == Helpers.Success)
             {
@@ -181,5 +181,26 @@ namespace SiwesApp.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, result);
             }
         }
+
+        /// <summary>
+        /// Update STUDENTs FOR AN Siwes Application
+        /// </summary>
+        /// Post: api/student/update/1
+        [HttpPost]
+        [Route("update/{studentId}")]
+        public async Task<ActionResult> UpdateStudent(int studentId,[FromBody] StudentRequest studentRequest)
+        {
+            var result = await _studentRepository.UpdateStudent(studentId, studentRequest);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
     }
 }

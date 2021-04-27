@@ -394,7 +394,7 @@ namespace SiwesApp.Repositories
             };
         }
 
-        public async Task<ToRespond> EditStudentsPlacement(int placementId, PlacementRequestDto placementRequest)
+        public async Task<ToRespond> UpdateStudentPlacement(int placementId, PlacementRequestDto placementRequest)
         {
             var placement =  await _dataContext.Placements.FindAsync(placementId);
             var student = await _dataContext.Students.Where(x => x.PlacementId == placementId)
@@ -437,7 +437,7 @@ namespace SiwesApp.Repositories
                     placement.StudentPicture = student.PictureUrl;
                 }
 
-                var dbTransaction = await _dataContext.Database.BeginTransactionAsync();
+                //var dbTransaction = await _dataContext.Database.BeginTransactionAsync();
 
                 _globalRepository.Update(placement);
                 //student.Placement = placement;
@@ -454,7 +454,7 @@ namespace SiwesApp.Repositories
                             StatusMessage = Helpers.StatusMessageSaveError
                         };
                     }
-                    await dbTransaction.CommitAsync();
+                    //await dbTransaction.CommitAsync();
                     return new ToRespond()
                     {
                         StatusCode = Helpers.Success,
@@ -473,6 +473,75 @@ namespace SiwesApp.Repositories
             };
 
 
+        }
+
+        public async Task<ToRespond> UpdateStudent(int studentId, StudentRequest studentRequest)
+        {
+            var student = await _dataContext.Students.FindAsync(studentId);
+
+            if (student == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+            if (studentRequest == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.ObjectNull,
+                    StatusMessage = Helpers.StatusMessageObjectNull
+                };
+            }
+
+            student.EmailAddress = studentRequest.EmailAddress;
+            student.FirstName = studentRequest.FirstName;
+            student.LastName = studentRequest.LastName;
+            student.PhoneNumber = studentRequest.PhoneNumber;
+            student.Address = studentRequest.Address;
+            student.Gender = studentRequest.Gender;
+            student.DOB = studentRequest.DOB;
+            student.State = studentRequest.State;
+            student.LGA = studentRequest.LGA;
+
+            if (studentRequest.StudentPicture != null)
+            {
+                var resultImage = _cloudinaryRepository.UploadFileToCloudinary(studentRequest.StudentPicture);
+                var image = (RawUploadResult)resultImage.ObjectValue;
+                student.PictureUrl = image.Uri.ToString();
+            }
+
+            //var dbTransaction = await _dataContext.Database.BeginTransactionAsync();
+            _globalRepository.Update(student);
+            var result = await _globalRepository.SaveAll();
+
+            if (result != null)
+            {
+                if (!result.Value)
+                {
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.SaveError,
+                        StatusMessage = Helpers.StatusMessageSaveError
+                    };
+                }
+                //await dbTransaction.CommitAsync();
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.Success,
+                    ObjectValue = _mapper.Map<StudentResponse>(student),
+                    StatusMessage = "Student Updated Successfully!!!"
+                };
+
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = "Can not update Student"
+            };
         }
     }
 }
