@@ -98,6 +98,12 @@
             </summary>
             Get: api/logbook/1/grade
         </member>
+        <member name="M:SiwesApp.Controllers.LogBookController.UpdateLogBook(System.Int32,SiwesApp.Dtos.StudentDto.LogBookRequest)">
+            <summary>
+            Update Student LogBook FOR AN Siwes Application
+            </summary>
+            Post: api/logbook/update/1
+        </member>
         <member name="M:SiwesApp.Controllers.RoleController.PostRoles(System.Collections.Generic.List{SiwesApp.Dtos.All.RoleRequest})">
             <summary>
             CREATE ROLE

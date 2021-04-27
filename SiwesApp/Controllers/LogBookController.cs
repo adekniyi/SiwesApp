@@ -159,5 +159,26 @@ namespace SiwesApp.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, result);
             }
         }
+
+        /// <summary>
+        /// Update Student LogBook FOR AN Siwes Application
+        /// </summary>
+        /// Post: api/logbook/update/1
+        [HttpPost]
+        [Route("update/{logBookId}")]
+        public async Task<ActionResult> UpdateLogBook(int logBookId, LogBookRequest logBookRequest)
+        {
+            var result = await _logBookRepository.UpdateLogBook(logBookId, logBookRequest);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
     }
 }

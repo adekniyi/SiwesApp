@@ -17,5 +17,6 @@ namespace SiwesApp.Interfaces
         public Task<ToRespond> GetAGradedLogBook(int gradeId);
         public Task<ToRespond> GetAllStudentCommenttedLogBook();
         public Task<ToRespond> GetAllStudentGradedLogBook();
+        public Task<ToRespond> UpdateLogBook(int logBookId,LogBookRequest logBookRequest);
     }
 }

@@ -376,5 +376,62 @@ namespace SiwesApp.Repositories
                 ObjectValue = _mapper.Map<List<GradeResponse>>(grade),
             };
         }
+
+        public async Task<ToRespond> UpdateLogBook(int logBookId, LogBookRequest logBookRequest)
+        {
+            var logBook = await _dataContext.LogBooks.Where(x=>x.LogBookId == logBookId)
+                                                     .Include(x=>x.Comment)
+                                                     .Include(x=>x.Grade)
+                                                     .FirstOrDefaultAsync();
+
+            if (logBook == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+            if (logBookRequest == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.ObjectNull,
+                    StatusMessage = Helpers.StatusMessageObjectNull
+                };
+            }
+
+            if(!logBook.Comment.Any() || !logBook.Grade.Any())
+            {
+                var logbook = _mapper.Map<LogBook>(logBookRequest);
+
+                _globalRepository.Update(logbook);
+                var result = await _globalRepository.SaveAll();
+
+                if (result != null)
+                {
+                    if (!result.Value)
+                    {
+                        return new ToRespond()
+                        {
+                            StatusCode = Helpers.SaveError,
+                            StatusMessage = Helpers.StatusMessageSaveError
+                        };
+                    }
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.Success,
+                        ObjectValue = _mapper.Map<LogBookResponse>(logbook),
+                        StatusMessage = "Student LogBook Updated Successfully!!!"
+                    };
+                }
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = "Can not update Student LogBook"
+            };
+        }
     }
 }
