@@ -231,5 +231,69 @@ namespace SiwesApp.Repositories
                 ObjectValue = _mapper.Map<LecturerResponse>(lecturer)
             };
         }
+
+        public async Task<ToRespond> UpdateLecturer(int lecturerId, LecturerRequest lecturerRequest)
+        {
+            var lecturer = await _dataContext.Lecturers.FindAsync(lecturerId);
+
+            if (lecturer == null)
+            {   
+                return new ToRespond
+                {
+                    StatusCode = Helpers.NotFound,
+                    StatusMessage = Helpers.StatusMessageNotFound
+                };
+            }
+            if (lecturerRequest == null)
+            {
+                return new ToRespond
+                {
+                    StatusCode = Helpers.ObjectNull,
+                    StatusMessage = Helpers.StatusMessageObjectNull
+                };
+            }
+
+            lecturer.EmailAddress = lecturerRequest.EmailAddress;
+            lecturer.FirstName = lecturerRequest.FirstName;
+            lecturer.LastName = lecturerRequest.LastName;
+            lecturer.PhoneNumber = lecturerRequest.PhoneNumber;
+            lecturer.Department = lecturerRequest.Department;
+
+            if (lecturerRequest.PictureUrl != null)
+            {
+                var resultImage = _cloudinaryRepository.UploadFileToCloudinary(lecturerRequest.PictureUrl);
+                var image = (RawUploadResult)resultImage.ObjectValue;
+                lecturer.PictureUrl = image.Uri.ToString();
+            }
+
+            _globalRepository.Update(lecturer);
+            var result = await _globalRepository.SaveAll();
+
+            if (result != null)
+            {
+                if (!result.Value)
+                {
+                    return new ToRespond()
+                    {
+                        StatusCode = Helpers.SaveError,
+                        StatusMessage = Helpers.StatusMessageSaveError
+                    };
+                }
+                //await dbTransaction.CommitAsync();
+                return new ToRespond()
+                {
+                    StatusCode = Helpers.Success,
+                    ObjectValue = _mapper.Map<LecturerResponse>(lecturer),
+                    StatusMessage = "Lecturer Updated Successfully!!!"
+                };
+
+            }
+
+            return new ToRespond()
+            {
+                StatusCode = Helpers.SaveError,
+                StatusMessage = "Can not update Lecturer"
+            };
+        }
     }
 }

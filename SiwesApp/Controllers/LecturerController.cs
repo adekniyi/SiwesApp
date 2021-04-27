@@ -79,5 +79,25 @@ namespace SiwesApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Update Lecturer FOR AN Siwes Application
+        /// </summary>
+        /// Post: api/lecturer/update/1
+        [HttpPost]
+        [Route("update/{lecturerId}")]
+        public async Task<ActionResult> UpdateLecturer(int lecturerId, LecturerRequest lecturerRequest)
+        {
+            var result = await _lecturerRepository.UpdateLecturer(lecturerId, lecturerRequest);
+
+            if (result.StatusCode == Helpers.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, result);
+            }
+        }
+
     }
 }

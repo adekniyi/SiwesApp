@@ -50,6 +50,12 @@
             </summary>
             Get: api/lecturer/1
         </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.UpdateLecturer(System.Int32,SiwesApp.Dtos.LecturerDto.LecturerRequest)">
+            <summary>
+            Update Lecturer FOR AN Siwes Application
+            </summary>
+            Post: api/lecturer/update/1
+        </member>
         <member name="M:SiwesApp.Controllers.LogBookController.FillLogBook(SiwesApp.Dtos.StudentDto.LogBookRequest)">
             <summary>
             Fill A Student Log Book
