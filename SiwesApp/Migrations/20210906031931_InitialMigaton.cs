@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SiwesApp.Migrations
 {
-    public partial class Initialmigration : Migration
+    public partial class InitialMigaton : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
