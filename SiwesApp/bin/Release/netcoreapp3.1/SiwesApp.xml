@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SiwesApp</name>
+    </assembly>
+    <members>
+        <member name="M:SiwesApp.Controllers.AuthenticationController.PostLogin(SiwesApp.Dtos.All.UserForLogin)">
+            <summary>
+            LOGIN THE USER TO THE SYSTEM
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.AuthenticationController.ChangePassword(SiwesApp.Dtos.Authentication.ChangePasswordRequest)">
+            <summary>
+            SEND PASSWORD RESET LINK TO THE USER'S EMAIL
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.IndustrialSupervisorController.CreateIndustrialSupervisor(SiwesApp.Dtos.IndustrialSupervisorDto.IndustrialSupervisorRequest)">
+            <summary>
+            CREATE Industrial Supervisor FOR A Siwes Application
+            </summary>
+            POST: api/industrialSupervisor
+        </member>
+        <member name="M:SiwesApp.Controllers.IndustrialSupervisorController.GetAllIndustrialSupervisors">
+            <summary>
+            Get All Industrial Supervisors FOR AN Siwes Application
+            </summary>
+            Get: api/industrialSupervisor
+        </member>
+        <member name="M:SiwesApp.Controllers.IndustrialSupervisorController.GetOneIndustrialSupervisor(System.Int32)">
+            <summary>
+            Get One Industrial Supervisor FOR AN Siwes Application
+            </summary>
+            Get: api/industrialSupervisor/1
+        </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.CreateLecturer(SiwesApp.Dtos.LecturerDto.LecturerRequest)">
+            <summary>
+            CREATE A Lecturer FOR Siwes Application
+            </summary>
+            POST: api/lecturer
+        </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.GetAllLecturers">
+            <summary>
+            Get All Lecturers FOR AN Siwes Application
+            </summary>
+            Get: api/lecturer
+        </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.GetOneLecturer(System.Int32)">
+            <summary>
+            Get One Lecturer FOR AN Siwes Application
+            </summary>
+            Get: api/lecturer/1
+        </member>
+        <member name="M:SiwesApp.Controllers.LecturerController.UpdateLecturer(System.Int32,SiwesApp.Dtos.LecturerDto.LecturerRequest)">
+            <summary>
+            Update Lecturer FOR AN Siwes Application
+            </summary>
+            Post: api/lecturer/update/1
+        </member>
+        <member name="M:SiwesApp.Controllers.LogBookController.FillLogBook(SiwesApp.Dtos.StudentDto.LogBookRequest)">
+            <summary>
+            Fill A Student Log Book
+            </summary>
+            POST: api/logbook
+        </member>
+        <member name="M:SiwesApp.Controllers.LogBookController.CommentOnLogBook(System.Int32,SiwesApp.Dtos.CommentAndGrade.CommentRequest)">
+            <summary>
+            Comment On Student Log Book
+            </summary>
+            POST: api/logbook/1/comment
+        </member>
+        <member name="M:SiwesApp.Controllers.LogBookController.GradeLogBook(System.Int32,SiwesApp.Dtos.CommentAndGrade.GradeRequest)">
+            <summary>
+            Comment On Student Log Book
+            </summary>
+            POST: api/logbook/1/grade
+        </member>
+        <member name="M:SiwesApp.Controllers.LogBookController.GetACommenttedLogBook(System.Int32)">
+            <summary>
+            Get One Log Book Comment
+            </summary>
+            Get: api/logbook/1/comment/1
+        </member>
+        <member name="M:SiwesApp.Controllers.LogBookController.GetAGradedLogBook(System.Int32)">
+            <summary>
+            Get One Log Book Grade
+            </summary>
+            Get: api/logbook/1/grade/1
+        </member>
+        <member name="M:SiwesApp.Controllers.LogBookController.GetAllStudentCommenttedLogBook">
+            <summary>
+            Get All Log Book Comment
+            </summary>
+            Get: api/logbook/1/comment
+        </member>
+        <member name="M:SiwesApp.Controllers.LogBookController.GetAllStudentGradedLogBook">
+            <summary>
+            Get All Log Book Grade
+            </summary>
+            Get: api/logbook/1/grade
+        </member>
+        <member name="M:SiwesApp.Controllers.LogBookController.UpdateLogBook(System.Int32,SiwesApp.Dtos.StudentDto.LogBookRequest)">
+            <summary>
+            Update Student LogBook FOR AN Siwes Application
+            </summary>
+            Post: api/logbook/update/1
+        </member>
+        <member name="M:SiwesApp.Controllers.RoleController.PostRoles(System.Collections.Generic.List{SiwesApp.Dtos.All.RoleRequest})">
+            <summary>
+            CREATE ROLE
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.RoleController.GetRoles(System.Int32)">
+            <summary>
+            GET A ROLE BY ROLEID = ID
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.RoleController.DeleteRoles(System.Collections.Generic.List{SiwesApp.Dtos.All.RoleResponse})">
+            <summary>
+            DELETE ROLES
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.RoleController.PutRoles(System.Collections.Generic.List{SiwesApp.Dtos.All.RoleResponse})">
+            <summary>
+            UPDATE ROLES IN THE SYSTEM
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.RoleController.PostAssignRolesToUser(SiwesApp.Dtos.All.RoleUserAssignmentRequest)">
+            <summary>
+            ASSIGN ROLES
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesAdminController.CreateSiwesAdmin(SiwesApp.Dtos.SiwesAdmin.SiwesAdminRequest)">
+            <summary>
+            CREATE A Siwes ADMIN
+            </summary>
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.CreateSiwesCoordinator(SiwesApp.Dtos.SiwesCoOrdinatotDto.SiwesCoordinatorRequest)">
+            <summary>
+            CREATE SiwesCoordinator FOR A Siwes Application
+            </summary>
+            POST: api/siwescoordinator
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.GetAllSiwesCo">
+            <summary>
+            Get All SiwesCos FOR AN Siwes Application
+            </summary>
+            Get: api/siwesCo
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.GetOneSiwesCo(System.Int32)">
+            <summary>
+            Get One siwesCo FOR AN Siwes Application
+            </summary>
+            Get: api/siwesCo/1
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.MakePlacementEligible(System.Int32)">
+            <summary>
+            Make Student Eligible For Placement
+            </summary>
+            Get: api/siwesCo/eligible/1
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.RejectPlacement(System.Int32)">
+            <summary>
+            Reject Student Placement
+            </summary>
+            Get: api/siwesCo/reject/1
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.AssignStudentToLecturer(SiwesApp.Dtos.SiwesCoOrdinatotDto.AssignStudentToLecturerRequest)">
+            <summary>
+            Assign Students To Lecturer FOR A Siwes Application
+            </summary>
+            POST: api/siwescoordinator/assignstudentToLecturer
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.GetStudentLogBooks(System.Int32)">
+            <summary>
+            Get A Student Log Books
+            </summary>
+            Get: api/siwescoordinator/studentlogbook/1
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.GetStudentLogBook(System.Int32,System.Int32)">
+            <summary>
+            Get A Student Log Book
+            </summary>
+            Get: api/siwescoordinator/studentlogbook/1/1
+        </member>
+        <member name="M:SiwesApp.Controllers.SiwesCoController.UpdateSiwesCo(System.Int32,SiwesApp.Dtos.SiwesCoOrdinatotDto.SiwesCoordinatorRequest)">
+            <summary>
+            Update SiwesCo FOR AN Siwes Application
+            </summary>
+            Post: api/siwesco/update/1
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.CreateStudent(SiwesApp.Dtos.StudentDto.StudentRequest)">
+            <summary>
+            CREATE A STUDENT FOR AN Siwes Application
+            </summary>
+            POST: api/student
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.GetAllStudents">
+            <summary>
+            Get All STUDENTs FOR AN Siwes Application
+            </summary>
+            Get: api/student
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.GetOneStudent(System.Int32)">
+            <summary>
+            Get One STUDENT FOR AN Siwes Application
+            </summary>
+            Get: api/student/1
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.StudentPlacement(SiwesApp.Dtos.StudentDto.PlacementRequestDto)">
+            <summary>
+            CREATE A Placement For STUDENT 
+            </summary>
+            POST: api/student/placement
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.GetAllPendingStudentsPlacement">
+            <summary>
+            Get All Pending STUDENTs Placement FOR AN Siwes Application
+            </summary>
+            Get: api/student/placement/pending
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.GetAllEliigibleStudentsPlacement">
+            <summary>
+            Get All Eligible STUDENTs Placement FOR AN Siwes Application
+            </summary>
+            Get: api/student/placement/eligible
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.GetAllRejectedStudentsPlacement">
+            <summary>
+            Get All Rejected STUDENTs Placement FOR AN Siwes Application
+            </summary>
+            Get: api/student/placement/rejected
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.UpdateStudentPlacement(System.Int32,SiwesApp.Dtos.StudentDto.PlacementRequestDto)">
+            <summary>
+            Update STUDENTs Placement FOR AN Siwes Application
+            </summary>
+            Post: api/student/placement/update/1
+        </member>
+        <member name="M:SiwesApp.Controllers.StudentController.UpdateStudent(System.Int32,SiwesApp.Dtos.StudentDto.StudentRequest)">
+            <summary>
+            Update STUDENTs FOR AN Siwes Application
+            </summary>
+            Post: api/student/update/1
+        </member>
+    </members>
+</doc>
